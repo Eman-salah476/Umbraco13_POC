@@ -1,6 +1,96 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using System.Net.Http;
+@using System.Text.Json;
+@using System.Threading.Tasks;
+@using System.Collections.Generic;
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.BLogs>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+
 @{
-	Layout = null;
+    Layout = "Master.cshtml";
+    
+
 }
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Clean Blog</h1>
+                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            
+            <div id="blog-posts">
+                <p>Loading...</p>
+            </div>
+
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- script -->
+
+<script>
+    const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs";
+      
+    // Function to render blogs dynamically
+    function renderBlogs(blogs) {
+        const container = document.getElementById('blog-posts');
+        blogs.forEach(blog => {
+            const postHtml = `
+                <div class="post-preview">
+                    <a href="${blog.route.path}">
+                        <h2 class="post-title">${blog.properties.title}</h2>
+                        <h3 class="post-subtitle">${blog.properties.brief || 'No description available'}</h3>
+                    </a>
+                    <p class="post-meta">
+                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.createDate).toLocaleDateString()}
+                    </p>
+                </div>
+                <hr class="my-4" />
+            `;
+            container.insertAdjacentHTML('beforeend', postHtml);
+        });
+    }
+    
+// Function to fetch blogs from the Content Delivery API
+    async function fetchBlogs(page) {
+        try {
+            const response = await fetch(`${apiUrl}`);
+            if (!response.ok) throw new Error('Failed to fetch blogs');
+            const data = await response.json();
+
+            console.log(data);
+            
+            //Check if there are blogs
+            if (data.items && data.items.length > 0) {
+                renderBlogs(data.items);
+                return true; 
+            } else {
+                document.getElementById('blog-posts').innerHTML = '<p>No blogs found.</p>';
+                return false;
+            }
+        } catch (error) {
+            console.error('Error fetching blogs:', error);
+            return false;
+        }
+    }
+    
+    fetchBlogs();
+</script>
+
+
