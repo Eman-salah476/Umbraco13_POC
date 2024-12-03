@@ -13,7 +13,7 @@
 }
 
 <!-- Page Header-->
-<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
@@ -33,7 +33,7 @@
         <div class="col-md-10 col-lg-8 col-xl-7">
             
             <div id="blog-posts">
-                <p>Loading...</p>
+
             </div>
 
             <!-- Pager-->
@@ -45,7 +45,8 @@
 <!-- script -->
 
 <script>
-    const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs";
+    //const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs";
+    const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs&sort=sortOrder:asc&skip=0&take=3&expand=properties[blogCategory]";
       
     // Function to render blogs dynamically
     function renderBlogs(blogs) {
@@ -53,12 +54,14 @@
         blogs.forEach(blog => {
             const postHtml = `
                 <div class="post-preview">
+                <h4 class="btn btn-primary">${blog.properties.blogCategory.properties.title}</h4>
                     <a href="${blog.route.path}">
                         <h2 class="post-title">${blog.properties.title}</h2>
-                        <h3 class="post-subtitle">${blog.properties.brief || 'No description available'}</h3>
+                        <h3 class="post-subtitle">${blog.properties.brief}</h3>
+                        <p>${blog.properties.description?.markup || ''}</p>
                     </a>
                     <p class="post-meta">
-                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.createDate).toLocaleDateString()}
+                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.properties.blogDate).toLocaleDateString()}
                     </p>
                 </div>
                 <hr class="my-4" />
