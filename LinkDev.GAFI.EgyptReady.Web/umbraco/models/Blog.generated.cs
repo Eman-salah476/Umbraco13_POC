@@ -58,6 +58,13 @@ namespace Umbraco.Cms.Web.Common.PublishedModels
 		public virtual global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent BlogCategory => this.Value<global::Umbraco.Cms.Core.Models.PublishedContent.IPublishedContent>(_publishedValueFallback, "blogCategory");
 
 		///<summary>
+		/// Blog Date
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]
+		[ImplementPropertyType("blogDate")]
+		public virtual global::System.DateTime BlogDate => this.Value<global::System.DateTime>(_publishedValueFallback, "blogDate");
+
+		///<summary>
 		/// Brief
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder.Embedded", "13.5.2+3431f76")]

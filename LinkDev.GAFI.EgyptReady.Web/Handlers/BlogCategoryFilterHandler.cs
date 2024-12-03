@@ -1,6 +1,6 @@
 ﻿using Umbraco.Cms.Core.DeliveryApi;
 
-namespace LinkDev.GAFI.EgyptReady.Web.Handlers.BlogsCategoryHandlers
+namespace LinkDev.GAFI.EgyptReady.Web.Handlers
 {
     public class BlogCategoryFilterHandler : IFilterHandler
     {
@@ -19,7 +19,15 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers.BlogsCategoryHandlers
         {
             // Extract the category ID from the filter query
             var categoryId = filter.Substring(CategorySpecifier.Length);
-
+            if (string.IsNullOrEmpty(categoryId))
+            {
+                return new FilterOption
+                {
+                    FieldName = FieldName,
+                    Values = new string[0],
+                    Operator = FilterOperation.IsNot
+                };
+            }
             // There might be several values for the filter
             var values = categoryId.Split(',');
 
@@ -30,6 +38,6 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers.BlogsCategoryHandlers
                 Operator = FilterOperation.Is
             };
         }
-     
+
     }
 }

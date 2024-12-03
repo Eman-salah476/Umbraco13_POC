@@ -61,7 +61,7 @@
                         <p>${blog.properties.description?.markup || ''}</p>
                     </a>
                     <p class="post-meta">
-                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.createDate).toLocaleDateString()}
+                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.properties.blogDate).toLocaleDateString()}
                     </p>
                 </div>
                 <hr class="my-4" />
