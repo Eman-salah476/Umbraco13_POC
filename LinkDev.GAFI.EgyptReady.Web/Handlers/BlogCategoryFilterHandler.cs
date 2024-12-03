@@ -17,7 +17,6 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
 
         public FilterOption BuildFilterOption(string filter)
         {
-            // Extract the category ID from the filter query
             var categoryId = filter.Substring(CategorySpecifier.Length);
             if (string.IsNullOrEmpty(categoryId))
             {

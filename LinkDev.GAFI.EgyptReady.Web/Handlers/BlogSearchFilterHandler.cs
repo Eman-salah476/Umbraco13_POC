@@ -17,12 +17,11 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
         {
             var searchText = filter.Substring(SearchTextSpecifier.Length);
 
-            // Create a FilterOption that performs a "contains" search on multiple fields
             return new FilterOption
             {
-                FieldName = SearchFieldName, // Matches the composite field defined in the Index Handler
+                FieldName = SearchFieldName, 
                 Values = new[] { searchText },
-                Operator = FilterOperation.Contains // Perform a partial match
+                Operator = FilterOperation.Contains
             };
         }
 

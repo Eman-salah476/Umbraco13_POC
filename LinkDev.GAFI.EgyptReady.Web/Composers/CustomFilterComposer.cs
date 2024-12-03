@@ -14,7 +14,6 @@ namespace LinkDev.GAFI.EgyptReady.Web.Composers
 
             // Register the custom index handler
             builder.Services.AddSingleton<IContentIndexHandler, BlogIndexHandler>();
-            //builder.Services.AddSingleton<IContentIndexHandler, BlogSearchIndexHandler>();
 
         }
     }
