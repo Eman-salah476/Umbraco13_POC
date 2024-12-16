@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
     const baseUrl = "https://localhost:44392/umbraco/delivery/api/v2/content";
+    const pageSize = 3; 
+    let currentPage = 1;
     // Detect language from URL
     const isArabic = window.location.href.includes("/ar/");
     const acceptLanguage = isArabic ? "ar-eg" : "en-us";
@@ -9,11 +11,20 @@
 
 
     $('#applyFilters').click(function () {
+        currentPage = 1;
+        loadBlogs();
+    });
+
+    $('#resetFilters').click(function () {
+        $('#filterForm')[0].reset();
+        currentPage = 1;
         loadBlogs();
     });
 
     // Function to fetch blogs from the Content Delivery API
     function loadBlogs() {
+        const container = document.getElementById('blog-posts');
+        container.innerHTML = "";
 
         var queryParams = BuildQuery();
         const url = `${baseUrl}?${queryParams.join("&")}`;
@@ -26,6 +37,8 @@
             },
             success: function (response) {
                 renderBlogs(response.items);
+                renderPagination(response.total || 0);
+                scrollToTop()
             },
             error: function (error) {
                 console.error("Failed to fetch blogs", error);
@@ -55,12 +68,13 @@
         if (category) {
             filters.push(`filter=category:${encodeURIComponent(category)}`);
         }
+        const skip = (currentPage - 1) * pageSize;
         const queryParams = [
             `fetch=children:${fetchChildren}`,
             ...filters,
-            "sort=sortOrder:asc",
-            "skip=0",
-            "take=3",
+            "sort=blogDate:desc",
+            `skip=${skip}`,
+            `take=${pageSize}`,
             "expand=properties[blogCategory]",
             "fields=properties[$all]"
         ];
@@ -90,11 +104,10 @@
             });
         }
         else {
-            container.append("<p>No blogs found.</p>");
+            container.append("No blogs found");
         }
     }
 
-    // Load categories 
     function loadCategories() {
 
         var url = `${baseUrl}?fetch=children:categories`;
@@ -124,5 +137,36 @@
         }
     }
 
+    function renderPagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / pageSize);
+        const paginationContainer = $('#paginationContainer .pagination');
+        paginationContainer.empty();
 
+        if (totalPages > 1) {
+            for (let page = 1; page <= totalPages; page++) {
+                const isActive = page === currentPage ? "active" : "";
+                const pageButton = `
+                        <li class="page-item ${isActive}">
+                            <a class="page-link" href="#" data-page="${page}">${page}</a>
+                        </li>
+                    `;
+                paginationContainer.append(pageButton);
+            }
+
+            // Add click event for pagination buttons
+            $('.page-link').click(function (e) {
+                console.log("Clicked", e);
+                e.preventDefault();
+                const page = $(this).data('page');
+                if (page !== currentPage) {
+                    currentPage = page;
+                    loadBlogs();
+                }
+            });
+        }
+    }
+
+    function scrollToTop() {
+        $('#blogFilters').animate({ scrollTop: 0 }, "slow");
+    }
 });

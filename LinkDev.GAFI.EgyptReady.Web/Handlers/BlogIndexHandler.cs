@@ -1,4 +1,5 @@
-﻿using Umbraco.Cms.Core;
+﻿using LinkDev.GAFI.EgyptReady.Web.Helpers;
+using Umbraco.Cms.Core;
 using Umbraco.Cms.Core.DeliveryApi;
 using Umbraco.Cms.Core.Models;
 
@@ -25,7 +26,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
             {
                 FieldName = SearchFieldName,
                 FieldType = FieldType.StringAnalyzed, //Use StringAnalyzed for full-text search functionality, as it allows the field to be tokenized and analyzed for partial matches
-                VariesByCulture = false
+                VariesByCulture = true
             },
             new IndexField
             {
@@ -54,7 +55,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
             }
 
             // Combine title, brief, and description into one searchable field and Add index with it.
-            var searchTextIndexField = GenerateSearchTextIndexField(content);
+            var searchTextIndexField = GenerateSearchTextIndexField(content, culture);
             if (searchTextIndexField is not null)
             {
                 indexFieldValues.Add(searchTextIndexField);
@@ -72,19 +73,25 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
 
 
         #region Helpers
-        private IndexFieldValue? GenerateSearchTextIndexField(IContent content)
+        private IndexFieldValue? GenerateSearchTextIndexField(IContent content, string? culture)
         {
 
-            var title = content.GetValue<string>("title") ?? string.Empty;
-            var brief = content.GetValue<string>("brief") ?? string.Empty;
-            var description = content.GetValue<string>("description") ?? string.Empty;
+            var title = content.GetValue<string>("title", culture) ?? string.Empty;
+            var brief = content.GetValue<string>("brief", culture) ?? string.Empty;
+            var descriptionHtml = content.GetValue<string>("description", culture) ?? string.Empty;
+            var descriptionEditorValue = RichTextEditorHelper.DeserializeToRichTextEditorValue(descriptionHtml);
 
-            if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(brief) && string.IsNullOrEmpty(description))
+
+            if (string.IsNullOrEmpty(title) && string.IsNullOrEmpty(brief) && string.IsNullOrEmpty(descriptionHtml))
             {
                 return null;
             }
             else
             {
+                string description = string.Empty;
+                if(descriptionEditorValue is not null)
+                    description = RichTextEditorHelper.GetInnerText(descriptionEditorValue.Markup.ToString());
+
                 var combinedText = $"{title} {brief} {description}";
                 return new IndexFieldValue
                 {

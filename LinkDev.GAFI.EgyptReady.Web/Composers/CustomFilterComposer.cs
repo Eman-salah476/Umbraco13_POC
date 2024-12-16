@@ -16,6 +16,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Composers
             builder.Services.AddSingleton<IFilterHandler, BlogCategoryFilterHandler>();
             builder.Services.AddSingleton<IFilterHandler, BlogSearchFilterHandler>();
             builder.Services.AddSingleton<IFilterHandler, BlogDateFilterHandler>();
+            builder.Services.AddSingleton<ISortHandler, BlogDateSortHandler>();
 
             // Register the custom index handler
             builder.Services.AddSingleton<IContentIndexHandler, BlogIndexHandler>();
