@@ -8,7 +8,7 @@
 
 @{
     Layout = "Master.cshtml";
-    
+
 
 }
 
@@ -26,74 +26,66 @@
     </div>
 </header>
 
+<!-- Filtration -->
+<div id="blogFilters" class="container px-4 px-lg-5">
+    <form id="filterForm">
+        <div class="row p-2">
+
+            <div class="form-group col-md-4">
+                <label for="searchText">Search Text:</label>
+                <input type="text" id="searchText" name="searchText" class="form-control">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="category">Category:</label>
+                <select id="category" name="category" class="form-control">
+                    <option value="">Select Category</option>
+                    <!-- Dynamically load categories -->
+                </select>
+            </div>
+
+        </div>
+        <div class=" row p-2">
+            <div class="form-group col-md-4">
+                <label for="dateFrom">Date From:</label>
+                <input type="date" id="dateFrom" name="dateFrom" class="form-control">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="dateTo">Date To:</label>
+                <input type="date" id="dateTo" name="dateTo" class="form-control">
+            </div>
+        </div>
+
+        <div class="row justify-content-end p-4">
+            <button type="button" id="applyFilters" class="col-md-2 btn btn-primary mx-2">Apply Filters</button>
+            <button type="button" id="resetFilters" class="col-md-2 btn btn-secondary mx-2">Reset</button>
+        </div>
+    </form>
+    <hr />
+</div>
+
+
 
 <!-- Main Content-->
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
         <div class="col-md-10 col-lg-8 col-xl-7">
-            
+
             <div id="blog-posts">
-
             </div>
-
-            <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+     
+ <!-- Pagination -->
+            <nav aria-label="Page navigation" id="paginationContainer">
+                <ul class="pagination">
+                    <!-- Pagination buttons will be dynamically inserted here -->
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
 
 <!-- script -->
+<script src="/js/blogsScript.js"></script>
 
-<script>
-    //const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs";
-    const apiUrl = "/umbraco/delivery/api/v2/content?fetch=children:blogs&sort=sortOrder:asc&skip=0&take=3&expand=properties[blogCategory]";
-      
-    // Function to render blogs dynamically
-    function renderBlogs(blogs) {
-        const container = document.getElementById('blog-posts');
-        blogs.forEach(blog => {
-            const postHtml = `
-                <div class="post-preview">
-                <h4 class="btn btn-primary">${blog.properties.blogCategory.properties.title}</h4>
-                    <a href="${blog.route.path}">
-                        <h2 class="post-title">${blog.properties.title}</h2>
-                        <h3 class="post-subtitle">${blog.properties.brief}</h3>
-                        <p>${blog.properties.description?.markup || ''}</p>
-                    </a>
-                    <p class="post-meta">
-                        Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.properties.blogDate).toLocaleDateString()}
-                    </p>
-                </div>
-                <hr class="my-4" />
-            `;
-            container.insertAdjacentHTML('beforeend', postHtml);
-        });
-    }
-    
-// Function to fetch blogs from the Content Delivery API
-    async function fetchBlogs(page) {
-        try {
-            const response = await fetch(`${apiUrl}`);
-            if (!response.ok) throw new Error('Failed to fetch blogs');
-            const data = await response.json();
-
-            console.log(data);
-            
-            //Check if there are blogs
-            if (data.items && data.items.length > 0) {
-                renderBlogs(data.items);
-                return true; 
-            } else {
-                document.getElementById('blog-posts').innerHTML = '<p>No blogs found.</p>';
-                return false;
-            }
-        } catch (error) {
-            console.error('Error fetching blogs:', error);
-            return false;
-        }
-    }
-    
-    fetchBlogs();
-</script>
 
 

@@ -15,12 +15,14 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
 
         public FilterOption BuildFilterOption(string filter)
         {
-            var searchText = filter.Substring(SearchTextSpecifier.Length);
+            var searchTerm = filter.Substring(SearchTextSpecifier.Length);
+            var searchTexts = searchTerm.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToArray();
+            
 
             return new FilterOption
             {
                 FieldName = SearchFieldName, 
-                Values = new[] { searchText },
+                Values = searchTexts,
                 Operator = FilterOperation.Contains
             };
         }
