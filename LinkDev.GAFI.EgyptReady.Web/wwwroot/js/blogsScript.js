@@ -1,10 +1,7 @@
 ﻿$(document).ready(function () {
-    const baseUrl = "https://localhost:44392/umbraco/delivery/api/v2/content";
     const pageSize = 3; 
     let currentPage = 1;
-    // Detect language from URL
-    const isArabic = window.location.href.includes("/ar/");
-    const acceptLanguage = isArabic ? "ar-eg" : "en-us";
+
 
     loadCategories();
     loadBlogs();

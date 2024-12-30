@@ -23,7 +23,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Handlers
                 return new FilterOption
                 {
                     FieldName = FieldName,
-                    Values = new string[0],
+                    Values = new string[0], 
                     Operator = FilterOperation.IsNot
                 };
             }
