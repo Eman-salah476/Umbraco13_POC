@@ -30,7 +30,8 @@
             url: url,
             method: "GET",
             headers: {
-                "Accept-Language": acceptLanguage
+                "Accept-Language": acceptLanguage,
+                "Api-Key": ApiKey
             },
             success: function (response) {
                 renderBlogs(response.items);
@@ -92,7 +93,7 @@
                         </a>
                         <p class="post-subtitle">${blog.properties.brief}</p>
                         <p class="post-meta">
-                            Posted by ${blog.creatorName || 'Unknown Author'} on ${new Date(blog.properties.blogDate).toLocaleDateString()}
+                            ${new Date(blog.properties.blogDate).toLocaleDateString()}
                         </p>
                     </div>
                     <hr class="my-4" />
@@ -112,7 +113,8 @@
             url: url,
             method: "GET",
             headers: {
-                "Accept-Language": acceptLanguage
+                "Accept-Language": acceptLanguage,
+                "Api-Key": ApiKey
             },
             success: function (response) {
                 BindCategories(response.items);

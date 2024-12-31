@@ -18,8 +18,7 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    <h1>@Model.Value("title")</h1>
                 </div>
             </div>
         </div>
@@ -32,33 +31,32 @@
         <div class="row p-2">
 
             <div class="form-group col-md-4">
-                <label for="searchText">Search Text:</label>
+                <label for="searchText">@Umbraco.GetDictionaryValue("SearchText")</label>
                 <input type="text" id="searchText" name="searchText" class="form-control">
             </div>
 
             <div class="form-group col-md-4">
-                <label for="category">Category:</label>
+                <label for="category">@Umbraco.GetDictionaryValue("Category")</label>
                 <select id="category" name="category" class="form-control">
-                    <option value="">Select Category</option>
-                    <!-- Dynamically load categories -->
+                    <option value="">@Umbraco.GetDictionaryValue("PleaseSelect")</option>
                 </select>
             </div>
 
         </div>
         <div class=" row p-2">
             <div class="form-group col-md-4">
-                <label for="dateFrom">Date From:</label>
+                <label for="dateFrom">@Umbraco.GetDictionaryValue("DateFrom")</label>
                 <input type="date" id="dateFrom" name="dateFrom" class="form-control">
             </div>
             <div class="form-group col-md-4">
-                <label for="dateTo">Date To:</label>
+                <label for="dateTo">@Umbraco.GetDictionaryValue("DateTo")</label>
                 <input type="date" id="dateTo" name="dateTo" class="form-control">
             </div>
         </div>
 
         <div class="row justify-content-end p-4">
-            <button type="button" id="applyFilters" class="col-md-2 btn btn-primary mx-2">Apply Filters</button>
-            <button type="button" id="resetFilters" class="col-md-2 btn btn-secondary mx-2">Reset</button>
+            <button type="button" id="applyFilters" class="col-md-2 btn btn-primary mx-2">@Umbraco.GetDictionaryValue("Filter")</button>
+            <button type="button" id="resetFilters" class="col-md-2 btn btn-secondary mx-2">@Umbraco.GetDictionaryValue("Reset")</button>
         </div>
     </form>
     <hr />
