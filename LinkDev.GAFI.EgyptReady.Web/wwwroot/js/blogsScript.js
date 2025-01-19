@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    const pageSize = 3; 
+    const pageSize = 3;
     let currentPage = 1;
 
 
@@ -85,12 +85,20 @@
 
         if (blogs && blogs.length) {
             blogs.forEach(blog => {
+                var imageTag = getImageCropped(blog.properties.image);
                 const blogHtml = `
                     <div class="post-preview">
                     <h4 class="btn btn-warning">${blog.properties.blogCategory.properties.title}</h4>
+                    <div class="row">
+                    <div class="col-md-4">
+                    ${imageTag}
+                    </div>
+                    <div class="col-md-8">
                         <a href="${blog.route.path}">
                             <h2 class="post-title">${blog.properties.title}</h2>
                         </a>
+                    </div>
+                    </div>
                         <p class="post-subtitle">${blog.properties.brief}</p>
                         <p class="post-meta">
                             ${new Date(blog.properties.blogDate).toLocaleDateString()}
@@ -168,4 +176,27 @@
     function scrollToTop() {
         $('#blogFilters').animate({ scrollTop: 0 }, "slow");
     }
+
+    function getImageCropped(image) {
+        var imageTag = "";
+        if (image) {
+            var imageUrl = image.url;
+            var listingAliasDetails = image.crops.find(x => x.alias == "Listing");
+            if (listingAliasDetails) {
+                var coordinates = listingAliasDetails.coordinates;
+                if (coordinates) {
+                    var cc = coordinates.x1 + "," + coordinates.y1 + "," + coordinates.x2 + "," + coordinates.y2;
+                    var imageSrc = imageUrl + "?cc=" + cc + "&width=" + listingAliasDetails.width + "&height=" + listingAliasDetails.height;
+                    imageTag = "<img src='" + imageSrc + "' />";
+                }
+            }
+            else {
+                imageTag = "<img src='" + imageUrl + "' />";
+            }
+
+        }
+        return imageTag;
+    }
+
+
 });

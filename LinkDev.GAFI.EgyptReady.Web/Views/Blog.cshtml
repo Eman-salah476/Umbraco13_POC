@@ -1,8 +1,53 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Core.Media
+@using Umbraco.Cms.Core.PropertyEditors.ValueConverters
+@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@inject IImageUrlGenerator ImageUrlGenerator
+
+@using Umbraco.Extensions;
+
 @{
 	Layout = "Master.cshtml";
 }
 
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>@Model.Value("title")</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+<h1>@Model.Value("title")</h1>
+
+<img src="@Model.Value("image")" width="400" height="400" />
+
+
+@{
+        var image = Model.Value<ImageCropperValue>("image");
+
+        if (image != null)
+        {
+            //<img src="Url.GetCropUrl(imageUrl, "banner", true)" alt="Banner Image" />
+
+
+            var cropUrl = image.GetCropUrl("banner", ImageUrlGenerator, true);
+
+            <img src="@cropUrl" alt="Cropped Image" />
+        }
+        else
+        {
+            <p>No image uploaded.</p>
+        }
+}
+
+</div>
 
