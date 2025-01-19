@@ -189,6 +189,9 @@
                     var imageSrc = imageUrl + "?cc=" + cc + "&width=" + listingAliasDetails.width + "&height=" + listingAliasDetails.height;
                     imageTag = "<img src='" + imageSrc + "' />";
                 }
+                else {
+                    imageTag = "<img src='" + imageUrl + "' />";
+                }
             }
             else {
                 imageTag = "<img src='" + imageUrl + "' />";
