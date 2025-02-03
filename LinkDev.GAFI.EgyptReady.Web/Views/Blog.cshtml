@@ -8,7 +8,7 @@
 @using Umbraco.Extensions;
 
 @{
-	Layout = "Master.cshtml";
+    Layout = "Master.cshtml";
 }
 
 <!-- Page Header-->
@@ -25,29 +25,34 @@
 </header>
 
 
-<div class="container">
-<h1>@Model.Value("title")</h1>
 
-<img src="@Model.Value("image")" width="400" height="400" />
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-4 col-lg-4 col-xl-4">
+                @{
+                    var image = Model.Value<ImageCropperValue>("image");
 
+                    if (image != null)
+                    {
+                        //<img src="@Url.GetCropUrl(image, "banner")" alt="Banner Image" />
 
-@{
-        var image = Model.Value<ImageCropperValue>("image");
+                        var cropUrl = image.GetCropUrl("Details", ImageUrlGenerator, true);
 
-        if (image != null)
-        {
-            //<img src="Url.GetCropUrl(imageUrl, "banner", true)" alt="Banner Image" />
+                        <img src="@cropUrl" alt="Cropped Image" />
+                    }
+                    else
+                    {
+                        <p>No image uploaded.</p>
+                    }
+                }
+            </div>
+            <div class="col-md-8 col-lg-8 col-xl-7">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    </div>
+</article>
 
-
-            var cropUrl = image.GetCropUrl("banner", ImageUrlGenerator, true);
-
-            <img src="@cropUrl" alt="Cropped Image" />
-        }
-        else
-        {
-            <p>No image uploaded.</p>
-        }
-}
-
-</div>
 

@@ -1,10 +1,22 @@
+using LinkDev.GAFI.EgyptReady.Web.EventHandlers;
+using LinkDev.GAFI.EgyptReady.Web.Filters;
+using Umbraco.Cms.Core.Notifications;
+using Umbraco.Cms.Core.Services;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+
+//services.AddControllersWithViews(options =>
+//{
+//    options.Filters.Add<UnpublishValidationFilter>();
+//});
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
     .AddDeliveryApi()
     .AddComposers()
+    .AddNotificationHandler<ContentUnpublishingNotification, ContentUnpublishingHandler>()
     .Build();
 
 WebApplication app = builder.Build();
