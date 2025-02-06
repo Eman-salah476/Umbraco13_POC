@@ -15,6 +15,7 @@
     <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="13.5.2" />
     <PackageReference Include="Umbraco.Cms.Core" Version="13.5.2" />
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="13.5.2" />
+    <PackageReference Include="uSync" Version="13.2.6" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
   
