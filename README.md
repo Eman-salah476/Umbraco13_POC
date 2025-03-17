@@ -5,6 +5,10 @@ An Umbraco 13 project that focus on using the new features in version 13 like De
 
 Developed in  Umbraco 13 and .Net 8 versions 
 
+##BackOffice Administrator:
+UserName: Administrator@Gafi.com
+Password: Dev@123456
+
 
 ## Features
 
@@ -26,3 +30,8 @@ Developed in  Umbraco 13 and .Net 8 versions
 Implementing default webhooks, and Extending Webhooks to log data in another database.
 
 - [WebHooks Documentation](https://docs.umbraco.com/umbraco-cms/reference/webhooks)
+
+##BackOffice Administrator:
+UserName: Administrator@Gafi.com
+Password: Dev@123456
+
