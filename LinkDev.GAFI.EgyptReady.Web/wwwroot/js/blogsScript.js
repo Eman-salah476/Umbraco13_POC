@@ -68,7 +68,7 @@
         }
         const skip = (currentPage - 1) * pageSize;
         const queryParams = [
-            `fetch=children:${fetchChildren}`,
+            `filter=contentType:blog`,
             ...filters,
             "sort=blogDate:desc",
             `skip=${skip}`,
@@ -116,7 +116,7 @@
 
     function loadCategories() {
 
-        var url = `${baseUrl}?fetch=children:categories`;
+        var url = `${baseUrl}?filter=contentType:category`;
         $.ajax({
             url: url,
             method: "GET",
