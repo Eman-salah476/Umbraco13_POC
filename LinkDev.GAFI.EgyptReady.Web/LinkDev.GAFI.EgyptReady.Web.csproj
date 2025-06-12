@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <PackageReference Include="Umbraco.Cms.Api.Delivery" Version="13.5.2" />
     <PackageReference Include="Umbraco.Cms.Core" Version="13.5.2" />
+    <PackageReference Include="Umbraco.Cms.Integrations.SEO.GoogleSearchConsole.URLInspectionTool" Version="0.1.0" />
     <PackageReference Include="Umbraco.Cms.Web.Common" Version="13.5.2" />
     <PackageReference Include="Umbraco.Forms" Version="13.4.0" />
     <PackageReference Include="uSync" Version="13.2.6" />
