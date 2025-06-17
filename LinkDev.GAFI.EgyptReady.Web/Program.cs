@@ -17,6 +17,7 @@ builder.CreateUmbracoBuilder()
     .AddDeliveryApi()
     .AddComposers()
     .AddNotificationHandler<ContentUnpublishingNotification, ContentUnpublishingHandler>()
+    .AddNotificationHandler<SendingContentNotification, CustomContentAppHandler>()
     .Build();
 
 WebApplication app = builder.Build();
