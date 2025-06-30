@@ -1,0 +1,19 @@
+{
+  "propertyEditors": [
+
+    {
+      "alias": "formListDropDown",
+      "name": "FormListDropDown",
+      "icon": "icon-list",
+      "group": "Custom",
+      "editor": {
+        "view": "~/App_Plugins/CustomFields/views/FormListDropDown.html",
+        "valueType": "TEXT"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/CustomFields/js/FormListDropDown.js"
+
+  ]
+}

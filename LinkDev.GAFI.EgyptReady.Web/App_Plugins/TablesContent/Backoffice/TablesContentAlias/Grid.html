@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables Content</title>
+    <link href="/App_Plugins/TablesContent/css/TablesContent.css" rel="stylesheet" />
+    <script src="/js/config.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div ng-controller="TableGridViewController as vm" class="grid-wrapper">
+        <div class="umb-panel umb-editor-wrapper">
+            <div class="umb-editor-header">
+                <div class="flex items-center" style="height:100%;">
+                    <h1 class="umb-panel-header-name">{{vm.tableName}}</h1>
+                </div>
+            </div>
+            <div class="umb-editor-container">
+                <div class="umb-pane">
+                    <div class="umb-pane-content">
+
+                        <div class="filter-container">
+                            <!-- Filteration Form -->
+                            <!-- From Date-->
+                            <div class="control-group umb-control-group">
+                                <div class="umb-el-wrap">
+                                    <label for="fromDate" class="control-label">
+                                        <span class="ng-binding">Modified Date From</span>
+                                    </label>
+
+                                    <div class="controls">
+                                        <umb-date-time-picker id="fromDate" ng-model="fromDate"
+                                                              options="datePickerSingle" class="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty"
+                                                              aria-invalid="false" on-close="dateFromPickerChange(selectedDates, dateStr, instance)">
+                                        </umb-date-time-picker>
+                                        <button class="clear-icon" ng-click="vm.ClearDate('fromDate')"> <img src="/style-library/images/clear-icon.png" /></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--To Date -->
+                            <div class="control-group umb-control-group">
+                                <div class="umb-el-wrap">
+                                    <label for="toDate" class="control-label">
+                                        <span class="ng-binding">Modified Date To</span>
+                                    </label>
+
+                                    <div class="controls">
+                                        <umb-date-time-picker id="toDate" ng-model="toDate"
+                                                              options="datePickerSingle" class="ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty"
+                                                              aria-invalid="false" on-close="dateToPickerChange(selectedDates, dateStr, instance)">
+                                        </umb-date-time-picker>
+                                        <button class="clear-icon" ng-click="vm.ClearDate('toDate')"> <img src="/style-library/images/clear-icon.png" /></button>
+                                    </div>
+
+                                </div>
+                                <span class="text-error" ng-show="DateInvalid">End Date should be after or equal start date.</span>
+
+                            </div>
+
+
+                            <!--Forms List-->
+                            <div class="control-group umb-control-group">
+                                <div class="umb-el-wrap">
+                                    <label for="formId" class="control-label">
+                                        <span class="ng-binding">Table Forms</span>
+                                    </label>
+
+                                    <div class="controls">
+                                        <select id="formId"
+                                                name="formId" ng-model="formId">
+                                            <option selected ng-value="null">Select form</option>
+                                            <option ng-repeat="form in formsList" value={{form.Id}}>{{form.title}}</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="my-2">
+                                <button class="btn btn-success" ng-click="vm.LoadData(1)">
+                                    Filter
+                                </button>
+                                <button class="mx-2 btn btn-info btn-reset" ng-click="vm.Clear()">
+                                    <img src="/style-library/images/reset-icon.png" />
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <button title="Generate PDF" ng-click="vm.GeneratePDF()" ng-disabled="!CanExport"
+                                    class="btn umb-button__button btn-outline umb-button-- umb-outline">
+                                Export PDF
+                            </button>
+                            <button title="Generate Excel" ng-click="vm.GenerateExcel()" ng-disabled="!CanExport"
+                                    class="btn umb-button__button btn-outline umb-button-- umb-outline">
+                                Export Excel
+                            </button>
+                        </div>
+
+                        <div class="">
+                            <div class="">
+                                <umb-load-indicator ng-show="!vm.dataLoaded"></umb-load-indicator>
+
+                                <umb-empty-state ng-hide="vm.searchResults.items">
+                                    <localize key="content_listViewNoItems"></localize>
+                                </umb-empty-state>
+
+                                <!-- Table Of content-->
+                                <div class="umb-scrollable">
+
+                                    <umb-content-grid-view items="vm.searchResults.items"
+                                                           item-properties="vm.searchResults.keys"
+                                                           allow-select-all="false">
+                                    </umb-content-grid-view>
+                                </div>
+
+                                <!-- Pagination-->
+                                <div class="flex justify-center">
+                                    <umb-pagination ng-show="vm.searchResults.totalPages"
+                                                    page-number="vm.pageNumber"
+                                                    total-pages="vm.searchResults.totalPages"
+                                                    on-next="vm.next"
+                                                    on-prev="vm.prev"
+                                                    on-go-to-page="vm.goToPage">
+                                    </umb-pagination>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="umb-editor-footer ng-scope">
+                <div class="umb-editor-footer-content">
+                    <div class="umb-editor-footer-content__left-side ng-scope">
+                        <div class="umb-breadcrumbs">
+                            <a class="umb-breadcrumbs__ancestor-link" href="/umbraco/#/content/TablesContentAlias/ContentViewList/{{vm.tableName}}">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+</html>

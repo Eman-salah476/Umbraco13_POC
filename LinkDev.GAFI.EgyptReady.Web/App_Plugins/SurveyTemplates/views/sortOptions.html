@@ -1,0 +1,45 @@
+﻿
+<div class="block-form umb-box-content">
+
+    <div class="alert alert-warning" ng-if="!model.value.columnList || model.value.columnList.length === 0">
+        <i class="icon icon-alert"></i>
+        No sortable columns available. Please add calculated columns first.
+    </div>
+
+    <!--Column -->
+    <div class="control-group umb-control-group">
+        <div class="umb-el-wrap">
+            <label for="column" class="control-label">
+                <span class="ng-binding">Column</span>
+                <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+            </label>
+
+            <div class="controls">
+                <select id="column" required
+                        class="input-block-level" name="column" ng-model="model.value.column">
+                    <option selected ng-value="null">Please select</option>
+                    <option ng-repeat="col in model.value.columnList" value={{col}}>{{col}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!--sort -->
+    <div class="control-group umb-control-group">
+        <div class="umb-el-wrap">
+            <label for="direction" class="control-label">
+                <span class="ng-binding">Direction</span>
+                <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+            </label>
+
+            <div class="controls">
+                <select id="direction" required
+                        class="input-block-level" name="direction" ng-model="model.value.direction">
+                    <option value="Asc">Ascending</option>
+                    <option value="Desc">Descending</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+</div>

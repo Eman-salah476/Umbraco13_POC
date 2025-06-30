@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="/App_Plugins/SurveyTemplates/css/CustomTables.css" rel="stylesheet" />
+    <script src="/js/config.js"></script>
+
+</head>
+<body>
+    <div ng-controller="EditTableGridController as vm" class="Table-wrapper">
+        <div class="umb-panel umb-editor-wrapper">
+            <div class="umb-editor-header">
+                <div class="flex items-center" style="height:100%;">
+                    <h1 class="umb-panel-header-name">Edit Template</h1>
+                </div>
+            </div>
+
+            <div class="umb-editor-container">
+                <div class="umb-pane">
+                    <div class="umb-pane-content">
+
+                        <div class="umb-box">
+                            <div class="block-form umb-box-content">
+
+                                <div class="control-group umb-control-group">
+                                    <div class="umb-el-wrap">
+                                        <label for="tableName" class="control-label">
+                                            <span class="ng-binding">Template Name</span>
+                                        </label>
+
+                                        <div class="controls">
+                                            <input type="text" id="tableName" class="input-block-level" name="tableName" disabled ng-model="tableName">
+                                            <span class="text-error" ng-show="!tableNameValid">Please enter valid Template name</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="hint">
+                                        <strong>Hint:</strong> Select the checkbox next to an item if you want it to be included as a calculated column.
+                                    </div>
+
+                                    <div id="content-list">
+                                        <!-- Dynamic content will be added here -->
+
+                                    </div>
+
+                                    <div>
+                                        <button id="add-content" class="umb-group-builder__group-add-property ng-scope" ng-click="vm.showAddModal()">+ Add New Content</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="umb-editor-footer ng-scope">
+                <div class="umb-editor-footer-content">
+                    <div class="umb-editor-footer-content__left-side ng-scope">
+                        <div class="umb-breadcrumbs">
+                            <a class="umb-breadcrumbs__ancestor-link" href="/umbraco#/surveyBuilder/TemplatesAlias/Templates">Back</a>
+                        </div>
+                    </div>
+
+                    <div class="umb-editor-footer-content__right-side ng-scope">
+                        <button id="save-content" class="btn umb-button__button btn-success umb-button-- umb-outline" ng-click="vm.Save()">Save</button>
+                        <button id="apply" class="btn umb-button__button btn-info umb-button-- umb-outline" ng-click="vm.Apply()">Apply</button>
+                        <button id="generate" class="btn umb-button__button btn-info umb-button-- umb-outline" ng-click="vm.GenerateForm()">Generate Survey</button>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables Content</title>
+    <script src="/js/config.js"></script>
+
+</head>
+<body>
+
+    <div ng-controller="TableContentViewsController as vm" class="views-wrapper">
+        <div class="umb-panel umb-editor-wrapper">
+            <div class="umb-editor-header">
+                <div class="flex items-center" style="height:100%;">
+                    <h1 class="umb-panel-header-name">{{vm.tableName}}</h1>
+                </div>
+            </div>
+            <div class="umb-editor-container">
+                <div class="umb-pane">
+                    <div class="umb-pane-content">
+
+                        <div class="umb-box">
+                            <div class="block-form umb-box-content">
+                                <umb-load-indicator ng-show="!vm.dataLoaded"></umb-load-indicator>
+
+                                <umb-empty-state ng-hide="vm.searchResults.items">
+                                    <localize key="content_listViewNoItems"></localize>
+                                </umb-empty-state>
+
+                                <!-- Table Of Forms-->
+                                <div class="umb-scrollable">
+
+                                    <umb-content-views items="vm.searchResults.items"
+                                                     allow-select-all="false"
+                                                     on-click="vm.clickItem(item)">
+                                    </umb-content-views>
+                                </div>
+
+                                <!-- Pagination-->
+                                <div class="flex justify-center">
+                                    <umb-pagination ng-show="vm.searchResults.totalPages"
+                                                    page-number="vm.pageNumber"
+                                                    total-pages="vm.searchResults.totalPages"
+                                                    on-next="vm.next"
+                                                    on-prev="vm.prev"
+                                                    on-go-to-page="vm.goToPage">
+                                    </umb-pagination>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

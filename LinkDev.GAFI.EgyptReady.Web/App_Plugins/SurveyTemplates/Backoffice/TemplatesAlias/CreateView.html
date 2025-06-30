@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="/App_Plugins/SurveyTemplates/css/TableView.css" rel="stylesheet" />
+    <script src="/js/config.js"></script>
+
+</head>
+<body>
+    <div ng-controller="CreateViewGridController as vm" class="Table-wrapper">
+        <div class="umb-panel umb-editor-wrapper">
+            <div class="umb-editor-header">
+                <div class="flex items-center" style="height:100%;">
+                    <h1 class="umb-panel-header-name">{{vm.tableName}}</h1>
+                </div>
+            </div>
+
+            <form name="CreateViewForm">
+
+                <div class="umb-editor-container">
+                    <div class="umb-pane">
+                        <div class="umb-pane-content">
+
+                            <div class="umb-box">
+                                <div class="block-form umb-box-content">
+                                    <!-- Create View Form -->
+                                    <!-- View Name -->
+                                    <div class="control-group umb-control-group">
+                                        <div class="umb-el-wrap">
+                                            <label for="viewName" class="control-label">
+                                                <span class="ng-binding">View Name</span>
+                                                <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+                                            </label>
+
+                                            <div class="controls">
+                                                <input type="text" id="viewName" name="viewName" placeholder="Enter view name" class="input-block-level" required ng-model="viewName">
+                                                <span class="text-error" ng-show="CreateViewForm.viewName.$error.required && CreateViewForm.viewName.$touched">Please enter view name</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- View Type -->
+                                    <div class="control-group umb-control-group">
+                                        <div class="umb-el-wrap">
+                                            <label for="viewType" class="control-label">
+                                                <span class="ng-binding">View Type</span>
+                                                <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+                                            </label>
+
+                                            <div class="controls">
+                                                <!--you may need to get list of view type from back-end-->
+                                                <select id="viewType" name="viewType" class="input-block-level" required ng-model="viewType">
+                                                    <option selected="selected" ng-value="null">Select Type</option>
+                                                    <option>Grid</option>
+                                                    <option>Table</option>
+                                                </select>
+                                                <span class="text-error" ng-show="CreateViewForm.viewType.$error.required && CreateViewForm.viewType.$touched">Please select view type</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Colums List box -->
+                                    <div class="control-group umb-control-group">
+                                        <div class="umb-el-wrap">
+                                            <label for="columns" class="control-label">
+                                                <span class="ng-binding">Select Columns to Display</span>
+                                            </label>
+
+                                            <div class="dual-listbox">
+                                                <div class="tree-container">
+                                                    <ul id="treeView"></ul>
+                                                </div>
+                                                <div class="selected-container">
+                                                    <ul id="selectedColumns"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Sort Options -->
+                                    <div class="control-group umb-control-group">
+                                        <div class="umb-el-wrap">
+                                            <label for="sorting" class="control-label">
+                                                <span class="ng-binding">Sorting Options</span>
+                                            </label>
+
+                                            <div id="sortingContainer" class="sortingContainer"></div>
+                                            <button id="addSortOption" class="umb-group-builder__group-add-property ng-scope" ng-click="vm.AddSortingOption()">Add Sorting Option</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="umb-editor-footer ng-scope">
+                    <div class="umb-editor-footer-content">
+                        <div class="umb-editor-footer-content__left-side ng-scope">
+                            <div class="umb-breadcrumbs">
+                                <a class="umb-breadcrumbs__ancestor-link" href="/umbraco#/surveyBuilder/TemplatesAlias/ListView/{{vm.tableName}}">Back</a>
+                            </div>
+                        </div>
+
+                        <div class="umb-editor-footer-content__right-side ng-scope">
+                            <button id="saveButton" class="btn umb-button__button btn-success umb-button-- umb-outline" ng-click="vm.SaveView()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+
+    </div>
+</body>
+</html>

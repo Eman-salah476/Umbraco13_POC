@@ -1,0 +1,15 @@
+<script src="/js/config.js"></script>
+
+<div ng-controller="FormListDropDownController">
+
+    <ng-form name="dropDownListForm">
+
+        <select name="dropDownList"
+                class="umb-property-editor umb-dropdown"
+                ng-model="model.value"
+                ng-required="model.validation.mandatory">
+            <option ng-repeat="x in Forms" value="{{x.Id}}">{{x.title}}</option>
+        </select>
+
+    </ng-form>
+</div>

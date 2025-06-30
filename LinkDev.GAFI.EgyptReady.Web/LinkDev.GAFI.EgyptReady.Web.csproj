@@ -4,6 +4,31 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\CustomFields\views\FormListDropDown.html" />
+    <Content Include="App_Plugins\SurveyBuilderSection\lang\en-us.xml" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\CreateTemplate.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\CreateView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\delete.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\EditTemplate.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\EditView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\ListView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\Templates.html" />
+    <Content Include="App_Plugins\SurveyTemplates\css\CustomTables.css" />
+    <Content Include="App_Plugins\SurveyTemplates\css\TableView.css" />
+    <Content Include="App_Plugins\SurveyTemplates\lang\en-us.xml" />
+    <Content Include="App_Plugins\SurveyTemplates\views\prompt.html" />
+    <Content Include="App_Plugins\SurveyTemplates\views\sortOptions.html" />
+    <Content Include="App_Plugins\SurveyTemplates\views\tableContent.html" />
+    <Content Include="App_Plugins\Surveys\Backoffice\SurveyAlias\SurveysList.html" />
+    <Content Include="App_Plugins\Surveys\css\CustomStyle.css" />
+    <Content Include="App_Plugins\Surveys\lang\en-us.xml" />
+    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\ContentViewList.html" />
+    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\Grid.html" />
+    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\Table.html" />
+    <Content Include="App_Plugins\TablesContent\css\TablesContent.css" />
+    <Content Include="App_Plugins\TablesContent\lang\en-us.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms" Version="13.5.2" />
@@ -19,6 +44,23 @@
     <PackageReference Include="Umbraco.Forms" Version="13.4.0" />
     <PackageReference Include="uSync" Version="13.2.6" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="App_Plugins\CustomFields\js\FormListDropDown.js" />
+    <None Include="App_Plugins\CustomFields\package.manifest" />
+    <None Include="App_Plugins\SurveyBuilderSection\package.manifest" />
+    <None Include="App_Plugins\SurveyTemplates\js\CreateTemplate.js" />
+    <None Include="App_Plugins\SurveyTemplates\js\CreateView.js" />
+    <None Include="App_Plugins\SurveyTemplates\js\DeleteTemplate.js" />
+    <None Include="App_Plugins\SurveyTemplates\js\EditTemplate.js" />
+    <None Include="App_Plugins\SurveyTemplates\js\EditView.js" />
+    <None Include="App_Plugins\SurveyTemplates\js\ListView.js" />
+    <None Include="App_Plugins\Surveys\js\SurveysList.js" />
+    <None Include="App_Plugins\TablesContent\js\ContentViewList.js" />
+    <None Include="App_Plugins\TablesContent\js\Grid.js" />
+    <None Include="App_Plugins\TablesContent\js\Table.js" />
+    <None Include="App_Plugins\TablesContent\package.manifest" />
   </ItemGroup>
   
   <PropertyGroup>

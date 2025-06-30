@@ -1,0 +1,37 @@
+﻿
+.tree-container, .selected-container {
+    width: 45%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.dual-listbox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.sort-option {
+    padding: 8px 12px;
+    margin: 5px 20px;
+    background: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .sort-option span {
+        cursor: pointer;
+    }
+
+ul {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+li {
+    cursor: pointer;
+    margin: 5px 0;
+}

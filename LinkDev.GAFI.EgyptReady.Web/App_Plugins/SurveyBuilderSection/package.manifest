@@ -1,0 +1,19 @@
+{
+  "sections": [
+    {
+      "alias": "surveyBuilder",
+      "name": "Surveys Builder"
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/Surveys/js/SurveysList.js",
+    "~/App_Plugins/SurveyTemplates/js/CreateTemplate.js",
+    "~/App_Plugins/SurveyTemplates/js/EditTemplate.js",
+    "~/App_Plugins/SurveyTemplates/js/DeleteTemplate.js",
+    "~/App_Plugins/SurveyTemplates/js/ListView.js",
+    "~/App_Plugins/SurveyTemplates/js/CreateView.js",
+    "~/App_Plugins/SurveyTemplates/js/EditView.js"
+
+
+  ]
+}
