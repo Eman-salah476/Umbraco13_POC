@@ -13,6 +13,7 @@ A proof-of-concept (POC) project demonstrating the latest features of **Umbraco 
 - [Implemented Features](#implemented-features)
   - [Content Delivery API](#content-delivery-api)
   - [WebHooks](#webhooks)
+  - [Integration with Google Search Console - URL Inspection Tool](#integration-with-google-search-console---url-inspection-tool)
 - [Useful Links](#useful-links)
 - [License](#license)
 
@@ -91,6 +92,13 @@ This repository showcases a POC for Umbraco 13, leveraging its new features such
 - Uses Umbraco's [WebHooks](https://docs.umbraco.com/umbraco-cms/reference/webhooks) for event-driven integrations.
 - Includes custom extensions to log data to an external database.
 - Sample configuration for default and custom webhooks.
+
+### Integration with Google Search Console - URL Inspection Tool
+
+This project integrates Umbraco CMS with the Google Search Console URL Inspection Tool using the [Umbraco.Cms.Integrations.SEO.GoogleSearchConsole.URLInspectionTool](https://www.nuget.org/packages/Umbraco.Cms.Integrations.SEO.GoogleSearchConsole.URLInspectionTool) package. This allows you to inspect URLs directly from the Umbraco backoffice and view their status in Google Search Console.
+
+For setup instructions, configuration details, and usage guidelines, please refer to the [Integration with Google Search Console - URL Inspection Tool](../../wiki/Google-Search-Console-‐-URL-Inspection) section in our WIKI.
+
 
 ---
 
