@@ -16,7 +16,8 @@ namespace LinkDev.GAFI.EgyptReady.Web.EventHandlers
         {
             _backOfficeSecurity = backOfficeSecurity;
             _configuration = configuration;
-            AllowedUserGroupAliases = _configuration.GetValue<string>("Umbraco:CMS:Integrations:SEO:GoogleSearchConsole:Settings:AllowedUserGroupAliases") ?? string.Empty;
+            AllowedUserGroupAliases = _configuration.GetValue<string>
+                ("Umbraco:CMS:Integrations:SEO:GoogleSearchConsole:Settings:AllowedUserGroupAliases") ?? string.Empty;
             isEnabled = _configuration.GetValue<bool>("Umbraco:CMS:Integrations:SEO:GoogleSearchConsole:Settings:Enabled");
 
         }
