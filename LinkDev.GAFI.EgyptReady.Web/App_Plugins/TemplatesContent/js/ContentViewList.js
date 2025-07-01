@@ -17,7 +17,7 @@
         var vm = this;
         vm.uiURL = window.AppConfig.FormIODesignerUI;
         vm.APIURL = window.AppConfig.FormIODesignerAPI;
-        vm.PAGE_VIEW = '/umbraco#/content/TemplatesContentAlias';
+        vm.PAGE_VIEW = '/umbraco#/surveyBuilder/TemplatesContentAlias';
         vm.tableName = null;
 
         vm.searchResults = { items: null, totalPages: 1 };

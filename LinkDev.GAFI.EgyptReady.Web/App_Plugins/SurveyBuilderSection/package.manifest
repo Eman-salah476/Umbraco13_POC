@@ -7,6 +7,7 @@
   ],
   "javascript": [
     "~/App_Plugins/Surveys/js/SurveysList.js",
+    "~/App_Plugins/Surveys/js/ResponsesOverview.js",
     "~/App_Plugins/SurveyTemplates/js/CreateTemplate.js",
     "~/App_Plugins/SurveyTemplates/js/EditTemplate.js",
     "~/App_Plugins/SurveyTemplates/js/DeleteTemplate.js",

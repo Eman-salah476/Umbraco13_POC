@@ -14,7 +14,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Controllers.BackOffice.SurveyBuilder
 {
     [PluginController("TemplatesContent")]
     [ExcludeFromCodeCoverage]
-    [Tree("content", "TemplatesContentAlias",
+    [Tree("surveyBuilder", "TemplatesContentAlias",
       TreeTitle = "Templates", TreeGroup = "templatesContentGroup", SortOrder = 7)]
     public class TemplatesContentTreeController : TreeController
     {
@@ -78,7 +78,7 @@ namespace LinkDev.GAFI.EgyptReady.Web.Controllers.BackOffice.SurveyBuilder
                                 if (!string.IsNullOrEmpty(table.TableName))
                                 {
                                     var node = CreateTreeNode(table.Id.ToString(), "-1", queryStrings, table.TableName, "icon-grid", false);
-                                    node.RoutePath = $"content/{TreeAlias}/ContentViewList/{table.TableName}";
+                                    node.RoutePath = $"surveyBuilder/{TreeAlias}/ContentViewList/{table.TableName}";
                                     nodes.Add(node);
                                 }
                             }

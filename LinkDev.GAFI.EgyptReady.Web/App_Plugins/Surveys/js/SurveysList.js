@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module("umbraco.directives").component("umbFormsTable", {
-        template: '<div class="umb-table" ng-if="vm.items"><div class="umb-table-head"><div class="umb-table-row"><div class="umb-table-cell"></div><div class="umb-table-cell umb-table__name"><button type="button" class="umb-table-head__link"><localize key="general_name">Name</localize></button></div><div class="umb-table-cell"></div></div></div><div class="umb-table-body"><div class="umb-table-row" ng-repeat="item in vm.items track by $index" ng-class="{\'-selected\':item.selected, \'-light\':!item.published && item.updater != null}" ng-click="vm.selectItem(item, $index, $event)"><div class="umb-table-cell"></div><div class="umb-table-cell umb-table__name" ng-if="true"><a title="{{item.name}}" class="umb-table-body__link" ng-click="vm.clickItem(item, $event)" ng-bind="item.name"></a></div><div class="umb-table-cell"><button class="btn btn-success " style="margin-right: 10px;" ng-click="vm.clickItem(item, $event)">Edit</button><button class="btn btn-info" ng-click="vm.DeleteItem(item, $event)">Delete</button></div></div></div></div>',
+        template: '<div class="umb-table" ng-if="vm.items"><div class="umb-table-head"><div class="umb-table-row"><div class="umb-table-cell"></div><div class="umb-table-cell umb-table__name"><button type="button" class="umb-table-head__link"><localize key="general_name">Name</localize></button></div><div class="umb-table-cell"></div></div></div><div class="umb-table-body"><div class="umb-table-row" ng-repeat="item in vm.items track by $index" ng-class="{\'-selected\':item.selected, \'-light\':!item.published && item.updater != null}" ng-click="vm.selectItem(item, $index, $event)"><div class="umb-table-cell"></div><div class="umb-table-cell umb-table__name" ng-if="true"><a title="{{item.name}}" class="umb-table-body__link" ng-click="vm.clickItem(item, $event)" ng-bind="item.name"></a></div><div class="umb-table-cell"><button class="btn btn-success " style="margin-right: 10px;" ng-click="vm.clickItem(item, $event)">Edit</button><button style="margin-right: 10px;" class="btn btn-success" ng-click="vm.OverviewRedirect(item, $event)">Responses Overview</button><button class="btn btn-info" ng-click="vm.DeleteItem(item, $event)">Delete</button></div></div></div></div>',
 
         controller: function TableController() {
             var vm = this;
@@ -10,9 +10,12 @@
             vm.DeleteItem = function (item, $event) {
                 !vm.onDelete || $event.metaKey || $event.ctrlKey || (vm.onDelete({ item: item }), $event.preventDefault()), $event.stopPropagation();
             }
+            vm.OverviewRedirect = function (item, $event) {
+                !vm.onOverviewRedirect || $event.metaKey || $event.ctrlKey || (vm.onOverviewRedirect({ item: item }), $event.preventDefault()), $event.stopPropagation();
+            }
         },
         controllerAs: "vm",
-        bindings: { items: "<", itemProperties: "<", allowSelectAll: "<", onSelect: "&", onClick: "&", onActionClick: "&", onDelete: "&" },
+        bindings: { items: "<", itemProperties: "<", allowSelectAll: "<", onSelect: "&", onClick: "&", onActionClick: "&", onDelete: "&", onOverviewRedirect: "&" },
     });
 
 
@@ -143,6 +146,12 @@
                                 notificationsService.error("Error", 'Failed to delete Survey')
                             }
                         }, onerror);
+                }
+
+                vm.OverviewRedirect = function (item) {
+                    //Redirect to Responses overview Page 
+                    console.log("FormId", item.id);
+                    window.location.href = `/umbraco#/surveyBuilder/SurveyAlias/ResponsesOverview/${item.id}`;
                 }
 
                 //Pagination

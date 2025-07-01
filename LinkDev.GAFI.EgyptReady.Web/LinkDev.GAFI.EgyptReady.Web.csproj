@@ -7,6 +7,7 @@
   <ItemGroup>
     <Content Include="App_Plugins\CustomFields\views\SurveyListDropDown.html" />
     <Content Include="App_Plugins\SurveyBuilderSection\lang\en-us.xml" />
+    <Content Include="App_Plugins\Surveys\Backoffice\SurveyAlias\ResponsesOverview.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateTemplate.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateView.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\delete.html" />
@@ -50,6 +51,7 @@
     <None Include="App_Plugins\CustomFields\js\SurveyListDropDown.js" />
     <None Include="App_Plugins\CustomFields\package.manifest" />
     <None Include="App_Plugins\SurveyBuilderSection\package.manifest" />
+    <None Include="App_Plugins\Surveys\js\ResponsesOverview.js" />
     <None Include="App_Plugins\SurveyTemplates\js\CreateTemplate.js" />
     <None Include="App_Plugins\SurveyTemplates\js\CreateView.js" />
     <None Include="App_Plugins\SurveyTemplates\js\DeleteTemplate.js" />
