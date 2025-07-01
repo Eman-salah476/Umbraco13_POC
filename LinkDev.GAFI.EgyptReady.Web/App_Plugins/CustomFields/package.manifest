@@ -2,18 +2,18 @@
   "propertyEditors": [
 
     {
-      "alias": "formListDropDown",
-      "name": "FormListDropDown",
+      "alias": "surveyListDropDown",
+      "name": "SurveyListDropDown",
       "icon": "icon-list",
       "group": "Custom",
       "editor": {
-        "view": "~/App_Plugins/CustomFields/views/FormListDropDown.html",
+        "view": "~/App_Plugins/CustomFields/views/SurveyListDropDown.html",
         "valueType": "TEXT"
       }
     }
   ],
   "javascript": [
-    "~/App_Plugins/CustomFields/js/FormListDropDown.js"
+    "~/App_Plugins/CustomFields/js/SurveyListDropDown.js"
 
   ]
 }

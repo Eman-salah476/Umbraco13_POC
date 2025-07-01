@@ -5,15 +5,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="App_Plugins\CustomFields\views\FormListDropDown.html" />
+    <Content Include="App_Plugins\CustomFields\views\SurveyListDropDown.html" />
     <Content Include="App_Plugins\SurveyBuilderSection\lang\en-us.xml" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\CreateTemplate.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\CreateView.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\delete.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\EditTemplate.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\EditView.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\ListView.html" />
-    <Content Include="App_Plugins\SurveyTemplates\Backoffice\TemplatesAlias\Templates.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateTemplate.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\delete.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\EditTemplate.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\EditView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\ListView.html" />
+    <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\Templates.html" />
     <Content Include="App_Plugins\SurveyTemplates\css\CustomTables.css" />
     <Content Include="App_Plugins\SurveyTemplates\css\TableView.css" />
     <Content Include="App_Plugins\SurveyTemplates\lang\en-us.xml" />
@@ -23,11 +23,11 @@
     <Content Include="App_Plugins\Surveys\Backoffice\SurveyAlias\SurveysList.html" />
     <Content Include="App_Plugins\Surveys\css\CustomStyle.css" />
     <Content Include="App_Plugins\Surveys\lang\en-us.xml" />
-    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\ContentViewList.html" />
-    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\Grid.html" />
-    <Content Include="App_Plugins\TablesContent\Backoffice\TablesContentAlias\Table.html" />
-    <Content Include="App_Plugins\TablesContent\css\TablesContent.css" />
-    <Content Include="App_Plugins\TablesContent\lang\en-us.xml" />
+    <Content Include="App_Plugins\TemplatesContent\Backoffice\TemplatesContentAlias\ContentViewList.html" />
+    <Content Include="App_Plugins\TemplatesContent\Backoffice\TemplatesContentAlias\Grid.html" />
+    <Content Include="App_Plugins\TemplatesContent\Backoffice\TemplatesContentAlias\Table.html" />
+    <Content Include="App_Plugins\TemplatesContent\css\TablesContent.css" />
+    <Content Include="App_Plugins\TemplatesContent\lang\en-us.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,7 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="App_Plugins\CustomFields\js\FormListDropDown.js" />
+    <None Include="App_Plugins\CustomFields\js\SurveyListDropDown.js" />
     <None Include="App_Plugins\CustomFields\package.manifest" />
     <None Include="App_Plugins\SurveyBuilderSection\package.manifest" />
     <None Include="App_Plugins\SurveyTemplates\js\CreateTemplate.js" />
@@ -57,10 +57,10 @@
     <None Include="App_Plugins\SurveyTemplates\js\EditView.js" />
     <None Include="App_Plugins\SurveyTemplates\js\ListView.js" />
     <None Include="App_Plugins\Surveys\js\SurveysList.js" />
-    <None Include="App_Plugins\TablesContent\js\ContentViewList.js" />
-    <None Include="App_Plugins\TablesContent\js\Grid.js" />
-    <None Include="App_Plugins\TablesContent\js\Table.js" />
-    <None Include="App_Plugins\TablesContent\package.manifest" />
+    <None Include="App_Plugins\TemplatesContent\js\ContentViewList.js" />
+    <None Include="App_Plugins\TemplatesContent\js\Grid.js" />
+    <None Include="App_Plugins\TemplatesContent\js\Table.js" />
+    <None Include="App_Plugins\TemplatesContent\package.manifest" />
   </ItemGroup>
   
   <PropertyGroup>

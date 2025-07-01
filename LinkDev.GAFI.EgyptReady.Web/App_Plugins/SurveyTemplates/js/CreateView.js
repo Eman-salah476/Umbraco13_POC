@@ -205,7 +205,7 @@
                     $http.post(`${vm.APIURL}/TableView/Add`, tableView).then(function (response) {
                         if (response && response.status == 200) {
                             notificationsService.success("Success", "Data saved successfully");
-                            window.location.href = `/umbraco#/surveyBuilder/TemplatesAlias/ListView/${vm.tableName}`;
+                            window.location.href = `/umbraco#/surveyBuilder/SurveyTemplatesAlias/ListView/${vm.tableName}`;
 
                         }
                         else {

@@ -127,12 +127,12 @@
                             if (data.Succeeded) {
                                 notificationsService.success("Success", "Data saved successfully");
                                 navigationService.syncTree({
-                                    tree: 'TablesAlias',
+                                    tree: 'SurveyTemplatesAlias',
                                     path: "-1," + $scope.tableName,
                                     forceReload: true
                                 });
 
-                                window.location.href = `/umbraco#/surveyBuilder/TemplatesAlias/EditTemplate?tableName=${$scope.tableName}`;
+                                window.location.href = `/umbraco#/surveyBuilder/SurveyTemplatesAlias/EditTemplate?tableName=${$scope.tableName}`;
                             }
                             else {
                                 notificationsService.error("Error", data?.Message);

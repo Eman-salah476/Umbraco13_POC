@@ -22,7 +22,7 @@
                 var vm = this;
                 vm.uiURL = window.AppConfig.FormIODesignerUI;
                 vm.APIURL = window.AppConfig.FormIODesignerAPI;
-                vm.PAGE_VIEW = '/umbraco#/surveyBuilder/TemplatesAlias';
+                vm.PAGE_VIEW = '/umbraco#/surveyBuilder/SurveyTemplatesAlias';
                 vm.tableName = null;
                 vm.searchResults = { items: null, totalPages: 1 };
                 vm.dataLoaded = 0;

@@ -1,0 +1,56 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Survey>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    Layout = "Master.cshtml";
+    string surveyId = @Model.Value("activeSurvey").ToString();
+}
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/assets/img/home-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>@Model.Value("title")</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+
+            <div class="row">
+                <div id="formio" class="col-md-6">
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/config.js" type="text/javascript"></script>
+<script src="@Url.Content("~/js/formio.full.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/js/form-module.js")" type="text/javascript"></script>
+<script>
+
+    function onSubmitSuccess() {
+        alert('Form submission successfully!');
+        //window.location.href = '/';
+    }
+
+    $(document).ready(async function(){
+
+        let apiUrl = window.AppConfig.FormIODesignerAPI;
+
+        console.log("APIURL:", apiUrl);
+
+        new FormService(`${apiUrl}`).fetchForm('@surveyId', 'formio', false, function () {
+                onSubmitSuccess();
+            });
+    });
+
+
+</script>

@@ -25,7 +25,7 @@
 
                                     treeService.removeNode($scope.currentNode);
 
-                                    $location.path('/surveyBuilder/TemplatesAlias/Templates');
+                                    $location.path('/surveyBuilder/SurveyTemplatesAlias/Templates');
                                 }
                                 else {
                                     notificationsService.error("Error", data?.Message || 'Failed to delete Template')

@@ -1,9 +1,0 @@
-{
-
-  "javascript": [
-    "~/App_Plugins/TablesContent/js/ContentViewList.js",
-    "~/App_Plugins/TablesContent/js/Grid.js",
-    "~/App_Plugins/TablesContent/js/Table.js"
-
-  ]
-}
