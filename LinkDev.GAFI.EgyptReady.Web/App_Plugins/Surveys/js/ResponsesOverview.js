@@ -7,8 +7,9 @@
                 vm.APIURL = window.AppConfig.FormIODesignerAPI;
                 vm.surveyId = null;
                 $scope.textFieldTypes = ["textarea", "textfield", "email"];
-                $scope.CountFieldTypes = ["checkbox", "selectboxes", "radio", "select"];
+                $scope.CountFieldTypes = [ "selectboxes", "radio", "select"];
                 $scope.numberFieldTypes = ["number"];
+                $scope.checkboxFieldTypes = ["checkbox"];
 
 
                 vm.GetSurveyIdFromUrl = function () {
@@ -165,12 +166,43 @@
                                     },
                                     options: {
                                         plugins: {
-                                            legend: { display: true, position: 'right' }
+                                            legend: { display: true, position: 'left' }
                                         }
                                     }
                                 });
                             }, 0);
                         }
+                            //Checkbox : Pie Chart with Yes/No counts
+                        else if ($scope.checkboxFieldTypes.includes(q.type)) {
+                            const chartDiv = document.createElement('div');
+                            chartDiv.className = 'overview-chart';
+                            const canvas = document.createElement('canvas');
+                            canvas.id = `chart_${idx}`;
+                            chartDiv.appendChild(canvas);
+                            wrapper.appendChild(chartDiv);
+                            container.appendChild(wrapper);
+
+                            setTimeout(() => {
+                                new Chart(document.getElementById(canvas.id), {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Yes', 'No'],
+                                        datasets: [{
+                                            data: [q.true || 0, q.false || 0],
+                                            backgroundColor: ['#36A2EB', '#FF6384']
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        plugins: {
+                                            legend: { display: true, position: 'left' }
+                                        }
+                                    }
+                                });
+                            }, 0);
+                        }
+
+
                     });
                 }
 
