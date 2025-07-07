@@ -13,6 +13,7 @@
                 $scope.checkboxFieldTypes = ["checkbox"];
 
 
+
                 vm.GetSurveyIdFromUrl = function () {
                     const url = window.location.href;
                     const parts = url.split('/ResponsesOverview/');
@@ -48,7 +49,7 @@
                     questions.forEach((q, idx) => {
                         const wrapper = document.createElement('div');
                         wrapper.className = 'overview-card';
-
+                        wrapper.style.position = 'relative';
 
                         // Title
                         const title = document.createElement('h4');
@@ -56,7 +57,7 @@
                         title.className = 'overview-title';
                         wrapper.appendChild(title);
 
-                        // Text/Email/Textarea: Show count and list
+                        // Text/Email/Textarea: Show count and list (first 4 only)
                         if ($scope.textFieldTypes.includes(q.type)) {
                             const countDiv = document.createElement('div');
                             countDiv.className = 'overview-count';
@@ -73,14 +74,31 @@
                             wrapper.appendChild(countDiv);
 
                             if (q.answers && q.answers.length > 0) {
+                                const list = document.createElement('div');
+                                list.className = 'overview-response-list-container';
+                                const span = document.createElement('span');
+                                span.innerText = "Latest Responses";
+                                list.append(span);
+
                                 const ul = document.createElement('ul');
                                 ul.className = 'overview-response-list';
-                                q.answers.forEach(ans => {
+                                // Show only first 4 responses
+                                q.answers.slice(0, 4).forEach(ans => {
                                     const li = document.createElement('li');
                                     li.innerText = ans;
                                     ul.appendChild(li);
                                 });
-                                wrapper.appendChild(ul);
+                                list.appendChild(ul);
+                                wrapper.appendChild(list);
+                                // If more than 4, add Show All button
+                                if (q.answers.length > 4) {
+                                    const showAllBtn = document.createElement('span');
+                                    showAllBtn.textContent = 'More Details';
+                                    showAllBtn.className = 'overview-showall-btn';
+
+                                    showAllBtn.addEventListener('click', () => vm.showAllResponses(q.label, q.answers));
+                                    wrapper.appendChild(showAllBtn);
+                                }
                             }
                             container.appendChild(wrapper);
                         }
@@ -214,6 +232,22 @@
 
                     });
                 }
+
+                // Helper to show all responses in a modal
+                vm.showAllResponses = function (label, answers) {
+                    var dialog = {
+                        title: label,
+                        view: '/App_Plugins/Surveys/views/DetailsView.html',
+                        value: { responses: answers },
+                        closeButtonLabel: 'Close',
+                        disableBackdropClick: false,
+                        close: function () {
+                            overlayService.close();
+                        },
+                    };
+                    overlayService.open(dialog);
+
+                };
 
                 //Initialize
                 vm.GetProcessedData();

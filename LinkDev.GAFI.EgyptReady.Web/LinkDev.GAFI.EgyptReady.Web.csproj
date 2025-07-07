@@ -9,6 +9,7 @@
     <Content Include="App_Plugins\SurveyBuilderSection\lang\en-us.xml" />
     <Content Include="App_Plugins\Surveys\Backoffice\SurveyAlias\ResponsesOverview.html" />
     <Content Include="App_Plugins\Surveys\css\OverviewStyle.css" />
+    <Content Include="App_Plugins\Surveys\views\DetailsView.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateTemplate.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\CreateView.html" />
     <Content Include="App_Plugins\SurveyTemplates\Backoffice\SurveyTemplatesAlias\delete.html" />

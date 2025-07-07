@@ -26,6 +26,7 @@
     align-items: flex-start;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .overview-title {
@@ -63,10 +64,25 @@
     max-width: 600px;
 }
 
+.overview-response-list-container span {
+    font-size: 1.1em;
+    color: #888;
+}
 
 .overview-response-list {
     margin: 0;
     padding-left: 20px;
     color: #333;
     font-size: 1em;
+}
+
+.overview-showall-btn {
+    position: absolute;
+    border: none;
+    background: none;
+    color: #2563eb;
+    text-decoration: underline;
+    right: 0;
+    margin: 15px;
+    cursor: pointer;
 }

@@ -1,0 +1,22 @@
+﻿
+<div class="umb-box-content">
+
+    <div class="umb-table">
+        <div class="umb-table-head">
+            <div class="umb-table-row" style="color: #1b264f">
+                <div class="umb-table-cell"></div>
+                <div class="umb-table-cell">ID</div>
+                <div class="umb-table-cell">Responses</div>
+            </div>
+        </div>
+
+        <div class="umb-table-body">
+            <div class="umb-table-row" ng-repeat="response in model.value.responses track by $index">
+                <div class="umb-table-cell"></div>
+                <div class="umb-table-cell">{{$index + 1}}</div>
+                <div class="umb-table-cell">{{response}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
