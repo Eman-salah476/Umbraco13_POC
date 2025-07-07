@@ -59,178 +59,191 @@
 
                         // Text/Email/Textarea: Show count and list (first 4 only)
                         if ($scope.textFieldTypes.includes(q.type)) {
-                            const countDiv = document.createElement('div');
-                            countDiv.className = 'overview-count';
-
-                            const Value = document.createElement('div');
-                            Value.innerText = q.answers ? q.answers.length : 0;
-                            Value.className = 'overview-number-value';
-                            countDiv.appendChild(Value);
-                            // Label
-                            const Label = document.createElement('div');
-                            Label.innerText = "Responses";
-                            Label.className = 'overview-number-label';
-                            countDiv.appendChild(Label);
-                            wrapper.appendChild(countDiv);
-
-                            if (q.answers && q.answers.length > 0) {
-                                const list = document.createElement('div');
-                                list.className = 'overview-response-list-container';
-                                const span = document.createElement('span');
-                                span.innerText = "Latest Responses";
-                                list.append(span);
-
-                                const ul = document.createElement('ul');
-                                ul.className = 'overview-response-list';
-                                // Show only first 4 responses
-                                q.answers.slice(0, 4).forEach(ans => {
-                                    const li = document.createElement('li');
-                                    li.innerText = ans;
-                                    ul.appendChild(li);
-                                });
-                                list.appendChild(ul);
-                                wrapper.appendChild(list);
-                                // If more than 4, add Show All button
-                                if (q.answers.length > 4) {
-                                    const showAllBtn = document.createElement('span');
-                                    showAllBtn.textContent = 'More Details';
-                                    showAllBtn.className = 'overview-showall-btn';
-
-                                    showAllBtn.addEventListener('click', () => vm.showAllResponses(q.label, q.answers));
-                                    wrapper.appendChild(showAllBtn);
-                                }
-                            }
-                            container.appendChild(wrapper);
+                            vm.RenderTextFieldTypes(q, container, wrapper);
                         }
                         // Number: Horizontal Bar Chart + Average
                         else if ($scope.numberFieldTypes.includes(q.type)) {
-                            const leftDiv = document.createElement('div');
-                            leftDiv.className = 'overview-count';
-                            // Average value
-                            const avg = typeof q.average !== 'undefined' ? q.average.toFixed(2) : '-';
-                            const avgValue = document.createElement('div');
-                            avgValue.innerText = avg;
-                            avgValue.className = 'overview-number-value';
-                            leftDiv.appendChild(avgValue);
-                            // Label
-                            const avgLabel = document.createElement('div');
-                            avgLabel.innerText = "Average";
-                            avgLabel.className = 'overview-number-label';
-                            leftDiv.appendChild(avgLabel);
-                            wrapper.appendChild(leftDiv);
-
-                            // Chart
-                            const chartDiv = document.createElement('div');
-                            chartDiv.className = 'overview-chart';
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `chart_${idx}`;
-                            chartDiv.appendChild(canvas);
-                            wrapper.appendChild(chartDiv);
-                            container.appendChild(wrapper);
-
-                            // Prepare data for horizontal bar
-                            let counts = {};
-                            (q.answers || []).forEach(val => {
-                                let key = Math.round(val);
-                                counts[key] = (counts[key] || 0) + 1;
-                            });
-                            const labels = Object.keys(counts);
-                            const dataVals = Object.values(counts);
-                            setTimeout(() => {
-                                new Chart(document.getElementById(canvas.id), {
-                                    type: 'bar',
-                                    data: {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: 'Responses',
-                                            data: dataVals,
-                                            backgroundColor: 'rgba(54, 162, 235, 0.5)'
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        indexAxis: 'y',
-                                        plugins: {
-                                            legend: { display: false }
-                                        },
-                                        scales: {
-                                            x: { beginAtZero: true }
-                                        }
-                                    }
-                                });
-                            }, 0);
+                            vm.BuildNumberFieldTypesChart(idx, q, container, wrapper);
                         }
-                        // CountFieldTypes: Doughnut Chart with counts in labels
+                        // CountFieldTypes: Doughnut Chart 
                         else if ($scope.CountFieldTypes.includes(q.type)) {
-                            const chartDiv = document.createElement('div');
-                            chartDiv.className = 'overview-chart';
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `chart_${idx}`;
-                            chartDiv.appendChild(canvas);
-                            wrapper.appendChild(chartDiv);
-                            container.appendChild(wrapper);
-
-                            // Prepare data
-                            const counts = q.counts || {};
-                            const labels = Object.keys(counts).map(k => `${k} (${counts[k]})`);
-                            const dataVals = Object.values(counts);
-                            setTimeout(() => {
-                                new Chart(document.getElementById(canvas.id), {
-                                    type: 'doughnut',
-                                    data: {
-                                        labels: labels,
-                                        datasets: [{
-                                            label: 'Responses',
-                                            data: dataVals,
-                                            backgroundColor: [
-                                                '#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
-                                            ]
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            legend: { display: true, position: 'left' }
-                                        }
-                                    }
-                                });
-                            }, 0);
+                            vm.BuildCountFieldTypesChart(idx, q, container, wrapper);
                         }
                         //Checkbox : Pie Chart with Yes/No counts
                         else if ($scope.checkboxFieldTypes.includes(q.type)) {
-                            const chartDiv = document.createElement('div');
-                            chartDiv.className = 'overview-chart';
-                            const canvas = document.createElement('canvas');
-                            canvas.id = `chart_${idx}`;
-                            chartDiv.appendChild(canvas);
-                            wrapper.appendChild(chartDiv);
-                            container.appendChild(wrapper);
-
-                            setTimeout(() => {
-                                new Chart(document.getElementById(canvas.id), {
-                                    type: 'pie',
-                                    data: {
-                                        labels: ['Yes', 'No'],
-                                        datasets: [{
-                                            data: [q.true || 0, q.false || 0],
-                                            backgroundColor: ['#36A2EB', '#FF6384']
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        maintainAspectRatio: false,
-                                        plugins: {
-                                            legend: { display: true, position: 'left' }
-                                        }
-                                    }
-                                });
-                            }, 0);
+                            vm.BuildCheckboxFieldTypesChart(idx, q, container, wrapper);
                         }
 
 
                     });
+                }
+
+                //Helpers to create charts according to question types
+                vm.RenderTextFieldTypes = function (question, container, wrapper) {
+                    const countDiv = document.createElement('div');
+                    countDiv.className = 'overview-count';
+
+                    const Value = document.createElement('div');
+                    Value.innerText = question.answers ? question.answers.length : 0;
+                    Value.className = 'overview-number-value';
+                    countDiv.appendChild(Value);
+                    // Label
+                    const Label = document.createElement('div');
+                    Label.innerText = "Responses";
+                    Label.className = 'overview-number-label';
+                    countDiv.appendChild(Label);
+                    wrapper.appendChild(countDiv);
+
+                    if (question.answers && question.answers.length > 0) {
+                        const list = document.createElement('div');
+                        list.className = 'overview-response-list-container';
+                        const span = document.createElement('span');
+                        span.innerText = "Latest Responses";
+                        list.append(span);
+
+                        const ul = document.createElement('ul');
+                        ul.className = 'overview-response-list';
+                        // Show only first 4 responses
+                        question.answers.slice(0, 4).forEach(ans => {
+                            const li = document.createElement('li');
+                            li.innerText = ans;
+                            ul.appendChild(li);
+                        });
+                        list.appendChild(ul);
+                        wrapper.appendChild(list);
+                        // If more than 4, add Show All button
+                        if (question.answers.length > 4) {
+                            const showAllBtn = document.createElement('span');
+                            showAllBtn.textContent = 'More Details';
+                            showAllBtn.className = 'overview-showall-btn';
+
+                            showAllBtn.addEventListener('click', () => vm.showAllResponses(question.label, question.answers));
+                            wrapper.appendChild(showAllBtn);
+                        }
+                    }
+                    container.appendChild(wrapper);
+                }
+                vm.BuildNumberFieldTypesChart = function (idx, question, container, wrapper) {
+                    const leftDiv = document.createElement('div');
+                    leftDiv.className = 'overview-count';
+                    // Average value
+                    const avg = typeof question.average !== 'undefined' ? question.average.toFixed(2) : '-';
+                    const avgValue = document.createElement('div');
+                    avgValue.innerText = avg;
+                    avgValue.className = 'overview-number-value';
+                    leftDiv.appendChild(avgValue);
+                    // Label
+                    const avgLabel = document.createElement('div');
+                    avgLabel.innerText = "Average";
+                    avgLabel.className = 'overview-number-label';
+                    leftDiv.appendChild(avgLabel);
+                    wrapper.appendChild(leftDiv);
+
+                    // Chart
+                    const chartDiv = document.createElement('div');
+                    chartDiv.className = 'overview-chart';
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart_${idx}`;
+                    chartDiv.appendChild(canvas);
+                    wrapper.appendChild(chartDiv);
+                    container.appendChild(wrapper);
+
+                    // Prepare data for horizontal bar
+                    let counts = {};
+                    (question.answers || []).forEach(val => {
+                        let key = Math.round(val);
+                        counts[key] = (counts[key] || 0) + 1;
+                    });
+                    const labels = Object.keys(counts);
+                    const dataVals = Object.values(counts);
+                    setTimeout(() => {
+                        new Chart(document.getElementById(canvas.id), {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Responses',
+                                    data: dataVals,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                indexAxis: 'y',
+                                plugins: {
+                                    legend: { display: false }
+                                },
+                                scales: {
+                                    x: { beginAtZero: true }
+                                }
+                            }
+                        });
+                    }, 0);
+                }
+                vm.BuildCountFieldTypesChart = function (idx, question, container, wrapper) {
+                    const chartDiv = document.createElement('div');
+                    chartDiv.className = 'overview-chart';
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart_${idx}`;
+                    chartDiv.appendChild(canvas);
+                    wrapper.appendChild(chartDiv);
+                    container.appendChild(wrapper);
+
+                    // Prepare data
+                    const counts = question.counts || {};
+                    const labels = Object.keys(counts).map(k => `${k} (${counts[k]})`);
+                    const dataVals = Object.values(counts);
+                    setTimeout(() => {
+                        new Chart(document.getElementById(canvas.id), {
+                            type: 'doughnut',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Responses',
+                                    data: dataVals,
+                                    backgroundColor:
+                                        [ "#fd7f6f", "#7eb0d5", "#b2e061", "#bd7ebe", "#ffb55a", "#ffee65", "#beb9db", "#fdcce5", "#8bd3c7"]
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: { display: true, position: 'left' }
+                                }
+                            }
+                        });
+                    }, 0);
+                }
+                vm.BuildCheckboxFieldTypesChart = function (idx, question, container, wrapper) {
+                    const chartDiv = document.createElement('div');
+                    chartDiv.className = 'overview-chart';
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart_${idx}`;
+                    chartDiv.appendChild(canvas);
+                    wrapper.appendChild(chartDiv);
+                    container.appendChild(wrapper);
+
+                    setTimeout(() => {
+                        new Chart(document.getElementById(canvas.id), {
+                            type: 'pie',
+                            data: {
+                                labels: ['Yes', 'No'],
+                                datasets: [{
+                                    data: [question.true || 0, question.false || 0],
+                                    backgroundColor: ["#bd7ebe", "#ffb55a"]
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: { display: true, position: 'left' }
+                                }
+                            }
+                        });
+                    }, 0);
                 }
 
                 // Helper to show all responses in a modal
