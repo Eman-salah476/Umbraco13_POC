@@ -203,7 +203,7 @@
                                     label: 'Responses',
                                     data: dataVals,
                                     backgroundColor:
-                                        [ "#fd7f6f", "#7eb0d5", "#b2e061", "#bd7ebe", "#ffb55a", "#ffee65", "#beb9db", "#fdcce5", "#8bd3c7"]
+                                        Array.from({ length: labels.length }, getRandomColor)
                                 }]
                             },
                             options: {
@@ -232,7 +232,7 @@
                                 labels: ['Yes', 'No'],
                                 datasets: [{
                                     data: [question.true || 0, question.false || 0],
-                                    backgroundColor: ["#bd7ebe", "#ffb55a"]
+                                    backgroundColor: Array.from({ length: 2 }, getRandomColor)
                                 }]
                             },
                             options: {
@@ -262,6 +262,11 @@
 
                 };
 
+                function getRandomColor() {
+                    // Generates a random pastel color
+                    const hue = Math.floor(Math.random() * 360);
+                    return `hsl(${hue}, 70%, 60%)`;
+                }
                 //Initialize
                 vm.GetProcessedData();
 
