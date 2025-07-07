@@ -6,8 +6,9 @@
                 var vm = this;
                 vm.APIURL = window.AppConfig.FormIODesignerAPI;
                 vm.surveyId = null;
+                $scope.totalResponses = 0;
                 $scope.textFieldTypes = ["textarea", "textfield", "email"];
-                $scope.CountFieldTypes = [ "selectboxes", "radio", "select"];
+                $scope.CountFieldTypes = ["selectboxes", "radio", "select"];
                 $scope.numberFieldTypes = ["number"];
                 $scope.checkboxFieldTypes = ["checkbox"];
 
@@ -27,9 +28,12 @@
                     $http.get(`${vm.APIURL}/SubmissionsOverview/GetOverview/${vm.surveyId}`).then(function (response) {
                         if (response && response.status == 200) {
                             let overview = response.data;
-                            if (overview && overview.ProcessedData) {
-                                let processedData = JSON.parse(overview.ProcessedData);
-                                vm.renderCharts(processedData);
+                            if (overview) {
+                                $scope.totalResponses = overview.TotalResponses;
+                                if (overview.ProcessedData) {
+                                    let processedData = JSON.parse(overview.ProcessedData);
+                                    vm.renderCharts(processedData);
+                                }
                             }
                         }
                     }, function (error) {
@@ -48,7 +52,7 @@
 
                         // Title
                         const title = document.createElement('h4');
-                        title.innerText = `${idx+1}.${q.label}`;
+                        title.innerText = `${idx + 1}.${q.label}`;
                         title.className = 'overview-title';
                         wrapper.appendChild(title);
 
@@ -126,6 +130,8 @@
                                         }]
                                     },
                                     options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
                                         indexAxis: 'y',
                                         plugins: {
                                             legend: { display: false }
@@ -165,6 +171,8 @@
                                         }]
                                     },
                                     options: {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
                                         plugins: {
                                             legend: { display: true, position: 'left' }
                                         }
@@ -172,7 +180,7 @@
                                 });
                             }, 0);
                         }
-                            //Checkbox : Pie Chart with Yes/No counts
+                        //Checkbox : Pie Chart with Yes/No counts
                         else if ($scope.checkboxFieldTypes.includes(q.type)) {
                             const chartDiv = document.createElement('div');
                             chartDiv.className = 'overview-chart';
@@ -194,6 +202,7 @@
                                     },
                                     options: {
                                         responsive: true,
+                                        maintainAspectRatio: false,
                                         plugins: {
                                             legend: { display: true, position: 'left' }
                                         }

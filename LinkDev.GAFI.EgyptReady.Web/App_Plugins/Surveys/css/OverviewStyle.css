@@ -1,4 +1,21 @@
 ﻿/* Overview Card Styles */
+.overview-responses {
+    width: 30%
+}
+
+.overview-status {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 120px;
+    margin-right: 24px;
+}
+
+    .overview-status img {
+        width: 20%;
+    }
+
 .overview-card {
     margin-bottom: 30px;
     background: #fff;
