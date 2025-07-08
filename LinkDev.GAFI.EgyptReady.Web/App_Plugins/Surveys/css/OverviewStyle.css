@@ -58,9 +58,28 @@
 }
 
 .overview-chart {
-    flex: 1 1 auto;
     min-width: 300px;
-    max-width: 600px;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview-chart-medium {
+    height: 250px;
+}
+
+.overview-chart-large {
+    height: 370px;
+}
+
+
+.overview-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .overview-response-list-container span {

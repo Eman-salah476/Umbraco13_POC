@@ -80,8 +80,10 @@
                         else if ($scope.checkboxFieldTypes.includes(q.type)) {
                             vm.BuildCheckboxFieldTypesChart(idx, q, container, wrapper);
                         }
-
-
+                        // Survey: Grouped Bar Chart
+                        else if (q.type === 'survey') {
+                            vm.BuildSurveyFieldTypesChart(idx, q, container, wrapper);
+                        }
                     });
                 }
 
@@ -148,7 +150,7 @@
 
                     // Chart
                     const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart';
+                    chartDiv.className = 'overview-chart overview-chart-medium';
                     const canvas = document.createElement('canvas');
                     canvas.id = `chart_${idx}`;
                     chartDiv.appendChild(canvas);
@@ -188,7 +190,7 @@
                                         formatter: function (value, context) {
                                             const data = context.chart.data.datasets[0].data;
                                             const total = data.reduce((a, b) => a + b, 0);
-                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            const percentage = total ? Math.round((value / total) * 100) : 0;
                                             return percentage + '%';
                                         }
                                     }
@@ -200,7 +202,7 @@
                 }
                 vm.BuildCountFieldTypesChart = function (idx, question, container, wrapper) {
                     const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart';
+                    chartDiv.className = 'overview-chart overview-chart-medium';
                     const canvas = document.createElement('canvas');
                     canvas.id = `chart_${idx}`;
                     chartDiv.appendChild(canvas);
@@ -234,7 +236,7 @@
                                         formatter: function (value, context) {
                                             const data = context.chart.data.datasets[0].data;
                                             const total = data.reduce((a, b) => a + b, 0);
-                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            const percentage = total ? Math.round((value / total) * 100) : 0;
                                             return percentage + '%';
                                         }
                                     }
@@ -246,7 +248,7 @@
                 }
                 vm.BuildCheckboxFieldTypesChart = function (idx, question, container, wrapper) {
                     const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart';
+                    chartDiv.className = 'overview-chart overview-chart-medium';
                     const canvas = document.createElement('canvas');
                     canvas.id = `chart_${idx}`;
                     chartDiv.appendChild(canvas);
@@ -292,10 +294,89 @@
                                         formatter: function (value, context) {
                                             const data = context.chart.data.datasets[0].data;
                                             const total = data.reduce((a, b) => a + b, 0);
-                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            const percentage = total ? Math.round((value / total) * 100) : 0;
                                             return percentage + '%';
                                         }
                                     }
+                                }
+                            },
+                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
+                        });
+                    }, 0);
+                }
+
+                // Add this new method for survey type
+                vm.BuildSurveyFieldTypesChart = function (idx, question, container, wrapper) {
+                    const chartDiv = document.createElement('div');
+                    chartDiv.className = 'overview-chart overview-chart-large';
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart_${idx}`;
+                    chartDiv.appendChild(canvas);
+                    wrapper.appendChild(chartDiv);
+                    container.appendChild(wrapper);
+
+                    // Prepare data
+                    const counts = question.counts || {};
+                    const aspects = Object.keys(counts);
+                    // Extract rating labels from the first aspect (no normalization)
+                    const ratingLabels = Object.keys(counts[aspects[0]] || {});
+
+                    // Prepare data for each rating across all aspects
+                    const datasets = ratingLabels.map((rating, i) => ({
+                        label: rating,
+                        data: aspects.map(aspect => {
+                            const aspectCounts = counts[aspect];
+                            return aspectCounts[rating] || 0;
+                        }),
+                        backgroundColor: getRandomColor()
+                    }));
+                    const chartData = {
+                        labels: aspects.map(a => a.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())),
+                        datasets: datasets
+                    };
+                    setTimeout(() => {
+                        new Chart(document.getElementById(canvas.id), {
+                            type: 'bar',
+                            data: chartData,
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: { display: true, position: 'bottom' },
+                                    datalabels: {
+                                        color: '#222',
+                                        font: { weight: 'bold' },
+                                        anchor: 'center',
+                                        align: 'center',
+                                        formatter: function (value, context) {
+                                            // Show percentage
+                                            const dataset = context.dataset.data;
+                                            const total = dataset.reduce((a, b) => a + b, 0);
+                                            const percentage = total ? Math.round((value / total) * 100) : 0;
+                                            return value > 0 ? `${percentage}%` : '';
+                                        }
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                const value = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
+                                                const aspectIndex = context.dataIndex;
+                                                const datasetIndex = context.datasetIndex;
+                                                const chart = context.chart;
+                                                // Sum all values for this aspect (i.e., all datasets at this index)
+                                                let total = 0;
+                                                chart.data.datasets.forEach(ds => {
+                                                    total += ds.data[aspectIndex];
+                                                });
+                                                const percentage = total ? Math.round((value / total) * 100) : 0;
+                                                return `${context.dataset.label}: ${value} (${percentage}%)`;
+                                            }
+                                        }
+                                    }
+                                },
+                                scales: {
+                                    x: { stacked: false },
+                                    y: { beginAtZero: true }
                                 }
                             },
                             plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
