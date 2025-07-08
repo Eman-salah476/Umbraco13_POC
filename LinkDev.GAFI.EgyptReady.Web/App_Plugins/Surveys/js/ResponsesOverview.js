@@ -6,6 +6,7 @@
                 var vm = this;
                 vm.APIURL = window.AppConfig.FormIODesignerAPI;
                 vm.surveyId = null;
+                vm.dataLoaded = 0;
                 $scope.totalResponses = 0;
                 $scope.textFieldTypes = ["textarea", "textfield", "email"];
                 $scope.CountFieldTypes = ["selectboxes", "radio", "select"];
@@ -21,6 +22,8 @@
                 }
 
                 vm.GetProcessedData = function () {
+                    vm.dataLoaded = 0;
+
                     vm.surveyId = vm.GetSurveyIdFromUrl();
                     if (!vm.surveyId) {
                         notificationsService.error("Error", 'Survey Id is missing in the URL.');
@@ -37,6 +40,8 @@
                                 }
                             }
                         }
+                        vm.dataLoaded = 1;
+
                     }, function (error) {
                         notificationsService.error("Error", 'Failed to load data');
                     });
@@ -45,6 +50,8 @@
                 vm.renderCharts = function (questions) {
                     const container = document.getElementById('chartsContainer');
                     container.innerHTML = '';
+
+                    RegisterChartDataLabels();
 
                     questions.forEach((q, idx) => {
                         const wrapper = document.createElement('div');
@@ -170,14 +177,24 @@
                             options: {
                                 responsive: true,
                                 maintainAspectRatio: false,
-                                indexAxis: 'y',
+                                indexAxis: 'x',
                                 plugins: {
-                                    legend: { display: false }
-                                },
-                                scales: {
-                                    x: { beginAtZero: true }
+                                    legend: { display: false },
+                                    datalabels: {
+                                        color: '#222',
+                                        font: { weight: 'bold' },
+                                        anchor: 'center',
+                                        align: 'center',
+                                        formatter: function (value, context) {
+                                            const data = context.chart.data.datasets[0].data;
+                                            const total = data.reduce((a, b) => a + b, 0);
+                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            return percentage + '%';
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
@@ -210,9 +227,20 @@
                                 responsive: true,
                                 maintainAspectRatio: false,
                                 plugins: {
-                                    legend: { display: true, position: 'left' }
+                                    legend: { display: true, position: 'left' },
+                                    datalabels: {
+                                        color: '#222',
+                                        font: { weight: 'bold' },
+                                        formatter: function (value, context) {
+                                            const data = context.chart.data.datasets[0].data;
+                                            const total = data.reduce((a, b) => a + b, 0);
+                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            return percentage + '%';
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
@@ -226,6 +254,7 @@
                     container.appendChild(wrapper);
 
                     setTimeout(() => {
+
                         new Chart(document.getElementById(canvas.id), {
                             type: 'pie',
                             data: {
@@ -239,9 +268,37 @@
                                 responsive: true,
                                 maintainAspectRatio: false,
                                 plugins: {
-                                    legend: { display: true, position: 'left' }
+                                    legend: {
+                                        display: true,
+                                        position: 'left',
+                                        labels: {
+                                            generateLabels: function (chart) {
+                                                const data = chart.data;
+                                                const dataset = data.datasets[0];
+                                                return data.labels.map((label, i) => {
+                                                    return {
+                                                        text: `${label} (${dataset.data[i]})`,
+                                                        fillStyle: dataset.backgroundColor[i],
+                                                        strokeStyle: dataset.backgroundColor[i],
+                                                        index: i
+                                                    };
+                                                });
+                                            }
+                                        }
+                                    },
+                                    datalabels: {
+                                        color: '#222',
+                                        font: { weight: 'bold' },
+                                        formatter: function (value, context) {
+                                            const data = context.chart.data.datasets[0].data;
+                                            const total = data.reduce((a, b) => a + b, 0);
+                                            const percentage = total ? (value / total * 100).toFixed(1) : 0;
+                                            return percentage + '%';
+                                        }
+                                    }
                                 }
-                            }
+                            },
+                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
@@ -267,6 +324,13 @@
                     const hue = Math.floor(Math.random() * 360);
                     return `hsl(${hue}, 70%, 60%)`;
                 }
+
+                function RegisterChartDataLabels() {
+                    if (window.ChartDataLabels && Chart.registry && !Chart.registry.plugins.get('datalabels')) {
+                        Chart.register(window.ChartDataLabels);
+                    }
+                }
+
                 //Initialize
                 vm.GetProcessedData();
 

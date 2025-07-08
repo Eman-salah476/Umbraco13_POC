@@ -6,6 +6,7 @@
     <title></title>
     <script src="/js/config.js"></script>
     <script src="/style-library/lib/chart/chart.umd.js"></script>
+    <script src="/style-library/lib/chart/chartjs-plugin-datalabels.min.js"></script>
     <link href="/App_Plugins/Surveys/css/OverviewStyle.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,6 +23,8 @@
 
             <div class="umb-editor-container">
                 <div class="umb-pane">
+                        <umb-load-indicator ng-show="!vm.dataLoaded"></umb-load-indicator>
+                    
                     <div class="umb-pane-content">
                         <div class="overview-card overview-responses">
                             <h5 class="overview-title">Responses</h5>
@@ -39,7 +42,16 @@
                 </div>
             </div>
 
+            <div class="umb-editor-footer ng-scope">
+                <div class="umb-editor-footer-content">
+                    <div class="umb-editor-footer-content__left-side ng-scope">
+                        <div class="umb-breadcrumbs">
+                            <a class="umb-breadcrumbs__ancestor-link" href="/umbraco#/surveyBuilder/SurveyAlias/SurveysList">Back</a>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
 
 
         </div>
