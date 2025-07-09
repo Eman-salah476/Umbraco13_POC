@@ -71,7 +71,7 @@
 }
 
 .overview-chart-large {
-    height: 370px;
+    height: 350px;
 }
 
 
@@ -93,6 +93,15 @@
     color: #333;
     font-size: 1em;
 }
+
+    .overview-response-list li {
+        line-height: 20px;
+        max-width: 300px;
+        min-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
 .overview-showall-btn {
     position: absolute;

@@ -149,13 +149,7 @@
                     wrapper.appendChild(leftDiv);
 
                     // Chart
-                    const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart overview-chart-medium';
-                    const canvas = document.createElement('canvas');
-                    canvas.id = `chart_${idx}`;
-                    chartDiv.appendChild(canvas);
-                    wrapper.appendChild(chartDiv);
-                    container.appendChild(wrapper);
+                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
 
                     // Prepare data for horizontal bar
                     let counts = {};
@@ -182,20 +176,8 @@
                                 indexAxis: 'x',
                                 plugins: {
                                     legend: { display: false },
-                                    //datalabels: {
-                                    //    color: '#222',
-                                    //    font: { weight: 'bold' },
-                                    //    anchor: 'center',
-                                    //    align: 'center',
-                                    //    formatter: function (value, context) {
-                                    //        const data = context.chart.data.datasets[0].data;
-                                    //        const total = data.reduce((a, b) => a + b, 0);
-                                    //        const percentage = total ? Math.round((value / total) * 100) : 0;
-                                    //        return percentage + '%';
-                                    //    }
-                                    //}
                                     datalabels: {
-                                        display: false // <--- This disables datalabels for this chart
+                                        display: false 
                                     },
                                     tooltip: {
                                         callbacks: {
@@ -211,18 +193,12 @@
                                     }
                                 }
                             }
-                            //plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
                 vm.BuildCountFieldTypesChart = function (idx, question, container, wrapper) {
-                    const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart overview-chart-medium';
-                    const canvas = document.createElement('canvas');
-                    canvas.id = `chart_${idx}`;
-                    chartDiv.appendChild(canvas);
-                    wrapper.appendChild(chartDiv);
-                    container.appendChild(wrapper);
+
+                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
 
                     // Prepare data
                     const counts = question.counts || {};
@@ -262,13 +238,8 @@
                     }, 0);
                 }
                 vm.BuildCheckboxFieldTypesChart = function (idx, question, container, wrapper) {
-                    const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart overview-chart-medium';
-                    const canvas = document.createElement('canvas');
-                    canvas.id = `chart_${idx}`;
-                    chartDiv.appendChild(canvas);
-                    wrapper.appendChild(chartDiv);
-                    container.appendChild(wrapper);
+
+                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
 
                     setTimeout(() => {
 
@@ -319,16 +290,9 @@
                         });
                     }, 0);
                 }
-
-                // Add this new method for survey type
                 vm.BuildSurveyFieldTypesChart = function (idx, question, container, wrapper) {
-                    const chartDiv = document.createElement('div');
-                    chartDiv.className = 'overview-chart overview-chart-large';
-                    const canvas = document.createElement('canvas');
-                    canvas.id = `chart_${idx}`;
-                    chartDiv.appendChild(canvas);
-                    wrapper.appendChild(chartDiv);
-                    container.appendChild(wrapper);
+                   
+                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-large');
 
                     // Prepare data
                     const counts = question.counts || {};
@@ -358,24 +322,8 @@
                                 maintainAspectRatio: false,
                                 plugins: {
                                     legend: { display: true, position: 'bottom' },
-                                    //datalabels: {
-                                    //    color: '#222',
-                                    //    font: { weight: 'bold' },
-                                    //    anchor: 'center',
-                                    //    align: 'center',
-                                    //    formatter: function (value, context) {
-                                    //        const aspectIndex = context.dataIndex;
-                                    //        const chart = context.chart;
-                                    //        let total = 0;
-                                    //        chart.data.datasets.forEach(ds => {
-                                    //            total += ds.data[aspectIndex];
-                                    //        });
-                                    //        const percentage = total ? Math.round((value / total) * 100) : 0;
-                                    //        return value > 0 ? `${percentage}%` : '';
-                                    //    }
-                                    //},
                                     datalabels: {
-                                        display: false // <--- This disables datalabels for this chart
+                                        display: false 
                                     },
                                     tooltip: {
                                         callbacks: {
@@ -399,7 +347,6 @@
                                     y: { beginAtZero: true }
                                 }
                             }
-                            //plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
@@ -419,6 +366,17 @@
                     overlayService.open(dialog);
 
                 };
+
+                function CreateChartDiv(idx, wrapper, container, styleClass) {
+                    const chartDiv = document.createElement('div');
+                    chartDiv.className = `overview-chart ${styleClass}`;
+                    const canvas = document.createElement('canvas');
+                    canvas.id = `chart_${idx}`;
+                    chartDiv.appendChild(canvas);
+                    wrapper.appendChild(chartDiv);
+                    container.appendChild(wrapper);
+                    return canvas
+                }
 
                 function getRandomColor() {
                     // Generates a random pastel color
