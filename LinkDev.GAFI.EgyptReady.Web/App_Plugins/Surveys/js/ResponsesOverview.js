@@ -194,9 +194,24 @@
                                     //        return percentage + '%';
                                     //    }
                                     //}
+                                    datalabels: {
+                                        display: false // <--- This disables datalabels for this chart
+                                    },
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function (context) {
+                                                // For vertical bar chart, use context.parsed.y
+                                                const value = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
+                                                const data = context.chart.data.datasets[0].data;
+                                                const total = data.reduce((a, b) => a + b, 0);
+                                                const percentage = total ? Math.round((value / total) * 100) : 0;
+                                                return `Responses: ${value} (${percentage}%)`;
+                                            }
+                                        }
+                                    }
                                 }
-                            },
-                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
+                            }
+                            //plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
@@ -359,6 +374,9 @@
                                     //        return value > 0 ? `${percentage}%` : '';
                                     //    }
                                     //},
+                                    datalabels: {
+                                        display: false // <--- This disables datalabels for this chart
+                                    },
                                     tooltip: {
                                         callbacks: {
                                             label: function (context) {
@@ -380,8 +398,8 @@
                                     x: { stacked: false },
                                     y: { beginAtZero: true }
                                 }
-                            },
-                            plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
+                            }
+                            //plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
                         });
                     }, 0);
                 }
