@@ -182,18 +182,18 @@
                                 indexAxis: 'x',
                                 plugins: {
                                     legend: { display: false },
-                                    datalabels: {
-                                        color: '#222',
-                                        font: { weight: 'bold' },
-                                        anchor: 'center',
-                                        align: 'center',
-                                        formatter: function (value, context) {
-                                            const data = context.chart.data.datasets[0].data;
-                                            const total = data.reduce((a, b) => a + b, 0);
-                                            const percentage = total ? Math.round((value / total) * 100) : 0;
-                                            return percentage + '%';
-                                        }
-                                    }
+                                    //datalabels: {
+                                    //    color: '#222',
+                                    //    font: { weight: 'bold' },
+                                    //    anchor: 'center',
+                                    //    align: 'center',
+                                    //    formatter: function (value, context) {
+                                    //        const data = context.chart.data.datasets[0].data;
+                                    //        const total = data.reduce((a, b) => a + b, 0);
+                                    //        const percentage = total ? Math.round((value / total) * 100) : 0;
+                                    //        return percentage + '%';
+                                    //    }
+                                    //}
                                 }
                             },
                             plugins: window.ChartDataLabels ? [window.ChartDataLabels] : []
@@ -343,25 +343,27 @@
                                 maintainAspectRatio: false,
                                 plugins: {
                                     legend: { display: true, position: 'bottom' },
-                                    datalabels: {
-                                        color: '#222',
-                                        font: { weight: 'bold' },
-                                        anchor: 'center',
-                                        align: 'center',
-                                        formatter: function (value, context) {
-                                            // Show percentage
-                                            const dataset = context.dataset.data;
-                                            const total = dataset.reduce((a, b) => a + b, 0);
-                                            const percentage = total ? Math.round((value / total) * 100) : 0;
-                                            return value > 0 ? `${percentage}%` : '';
-                                        }
-                                    },
+                                    //datalabels: {
+                                    //    color: '#222',
+                                    //    font: { weight: 'bold' },
+                                    //    anchor: 'center',
+                                    //    align: 'center',
+                                    //    formatter: function (value, context) {
+                                    //        const aspectIndex = context.dataIndex;
+                                    //        const chart = context.chart;
+                                    //        let total = 0;
+                                    //        chart.data.datasets.forEach(ds => {
+                                    //            total += ds.data[aspectIndex];
+                                    //        });
+                                    //        const percentage = total ? Math.round((value / total) * 100) : 0;
+                                    //        return value > 0 ? `${percentage}%` : '';
+                                    //    }
+                                    //},
                                     tooltip: {
                                         callbacks: {
                                             label: function (context) {
                                                 const value = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
                                                 const aspectIndex = context.dataIndex;
-                                                const datasetIndex = context.datasetIndex;
                                                 const chart = context.chart;
                                                 // Sum all values for this aspect (i.e., all datasets at this index)
                                                 let total = 0;
