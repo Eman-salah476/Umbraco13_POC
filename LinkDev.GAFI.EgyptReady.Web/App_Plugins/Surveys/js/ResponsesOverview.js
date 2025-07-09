@@ -89,19 +89,9 @@
 
                 //Helpers to create charts according to question types
                 vm.RenderTextFieldTypes = function (question, container, wrapper) {
-                    const countDiv = document.createElement('div');
-                    countDiv.className = 'overview-count';
 
-                    const Value = document.createElement('div');
-                    Value.innerText = question.answers ? question.answers.length : 0;
-                    Value.className = 'overview-number-value';
-                    countDiv.appendChild(Value);
-                    // Label
-                    const Label = document.createElement('div');
-                    Label.innerText = "Responses";
-                    Label.className = 'overview-number-label';
-                    countDiv.appendChild(Label);
-                    wrapper.appendChild(countDiv);
+                    const answersNumber = question.answers ? question.answers.length : 0;
+                    RenderResponse(answersNumber, wrapper, container);
 
                     if (question.answers && question.answers.length > 0) {
                         const list = document.createElement('div');
@@ -129,10 +119,26 @@
                             showAllBtn.addEventListener('click', () => vm.showAllResponses(question.label, question.answers));
                             wrapper.appendChild(showAllBtn);
                         }
+                        container.appendChild(wrapper);
                     }
-                    container.appendChild(wrapper);
                 }
                 vm.BuildNumberFieldTypesChart = function (idx, question, container, wrapper) {
+
+                    // Prepare data 
+                    let counts = {};
+                    (question.answers || []).forEach(val => {
+                        let key = Math.round(val);
+                        counts[key] = (counts[key] || 0) + 1;
+                    });
+
+                    const labels = Object.keys(counts);
+                    const dataVals = Object.values(counts);
+
+                    if (dataVals.length == 0) {
+                        RenderResponse('0', wrapper, container);
+                        return;
+                    }
+
                     const leftDiv = document.createElement('div');
                     leftDiv.className = 'overview-count';
                     // Average value
@@ -151,14 +157,7 @@
                     // Chart
                     const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
 
-                    // Prepare data for horizontal bar
-                    let counts = {};
-                    (question.answers || []).forEach(val => {
-                        let key = Math.round(val);
-                        counts[key] = (counts[key] || 0) + 1;
-                    });
-                    const labels = Object.keys(counts);
-                    const dataVals = Object.values(counts);
+
                     setTimeout(() => {
                         new Chart(document.getElementById(canvas.id), {
                             type: 'bar',
@@ -177,7 +176,7 @@
                                 plugins: {
                                     legend: { display: false },
                                     datalabels: {
-                                        display: false 
+                                        display: false
                                     },
                                     tooltip: {
                                         callbacks: {
@@ -198,12 +197,18 @@
                 }
                 vm.BuildCountFieldTypesChart = function (idx, question, container, wrapper) {
 
-                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
-
                     // Prepare data
                     const counts = question.counts || {};
                     const labels = Object.keys(counts).map(k => `${k} (${counts[k]})`);
                     const dataVals = Object.values(counts);
+
+                    if (!dataVals.some(v => v > 0)) {
+                        RenderResponse('0', wrapper, container);
+                        return;
+                    }
+
+                    const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-medium');
+
                     setTimeout(() => {
                         new Chart(document.getElementById(canvas.id), {
                             type: 'doughnut',
@@ -291,7 +296,7 @@
                     }, 0);
                 }
                 vm.BuildSurveyFieldTypesChart = function (idx, question, container, wrapper) {
-                   
+
                     const canvas = CreateChartDiv(idx, wrapper, container, 'overview-chart-large');
 
                     // Prepare data
@@ -323,7 +328,7 @@
                                 plugins: {
                                     legend: { display: true, position: 'bottom' },
                                     datalabels: {
-                                        display: false 
+                                        display: false
                                     },
                                     tooltip: {
                                         callbacks: {
@@ -388,6 +393,22 @@
                     if (window.ChartDataLabels && Chart.registry && !Chart.registry.plugins.get('datalabels')) {
                         Chart.register(window.ChartDataLabels);
                     }
+                }
+
+                function RenderResponse(responses, wrapper, container) {
+                    const countDiv = document.createElement('div');
+                    countDiv.className = 'overview-count';
+
+                    const Value = document.createElement('div');
+                    Value.innerText = responses;
+                    Value.className = 'overview-number-value';
+                    countDiv.appendChild(Value);
+                    const Label = document.createElement('div');
+                    Label.innerText = "Responses";
+                    Label.className = 'overview-number-label';
+                    countDiv.appendChild(Label);
+                    wrapper.appendChild(countDiv);
+                    container.appendChild(wrapper);
                 }
 
                 //Initialize
