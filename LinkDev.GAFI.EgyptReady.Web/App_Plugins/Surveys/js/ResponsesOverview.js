@@ -8,7 +8,7 @@
                 vm.surveyId = null;
                 vm.dataLoaded = 0;
                 $scope.totalResponses = 0;
-                $scope.textFieldTypes = ["textarea", "textfield", "email"];
+                $scope.textFieldTypes = ["textarea", "textfield", "email", "url", "phoneNumber", "tags", "datetime", "day", "time", "currency"];
                 $scope.CountFieldTypes = ["selectboxes", "radio", "select"];
                 $scope.numberFieldTypes = ["number"];
                 $scope.checkboxFieldTypes = ["checkbox"];
