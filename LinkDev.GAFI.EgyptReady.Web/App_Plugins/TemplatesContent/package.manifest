@@ -1,0 +1,9 @@
+{
+
+  "javascript": [
+    "~/App_Plugins/TemplatesContent/js/ContentViewList.js",
+    "~/App_Plugins/TemplatesContent/js/Grid.js",
+    "~/App_Plugins/TemplatesContent/js/Table.js"
+
+  ]
+}

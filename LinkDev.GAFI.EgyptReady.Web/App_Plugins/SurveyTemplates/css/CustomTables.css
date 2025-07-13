@@ -1,0 +1,60 @@
+﻿.hint {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-left: 4px solid #007bff;
+    color: #333;
+}
+
+.actions button{
+    margin-top: 10px;
+}
+
+#content-list {
+    margin-top: 20px;
+}
+
+.content-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-left: 20px;
+}
+
+    .content-item:last-child {
+        border-bottom: none;
+    }
+
+.content-header {
+    display: flex;
+    align-items: center;
+}
+
+.content-name {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.remove-item, .add-child {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.remove-item {
+    color: red;
+}
+
+.add-child {
+    color: green;
+}
+
+.child-list {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    top: 20%;
+}
+

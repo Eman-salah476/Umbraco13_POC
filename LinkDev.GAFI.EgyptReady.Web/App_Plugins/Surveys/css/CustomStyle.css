@@ -1,0 +1,47 @@
+﻿
+
+.iframe-container {
+    position: fixed;
+    top: 55px; /* Below header */
+    left: 350px; /* Account for navigation */
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 2000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    display: none;
+    border-top: 1px solid #d9d9d9;
+}
+
+    /* Make iframe fill container */
+    .iframe-container .iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    /* Close button styling */
+    .iframe-container .close-iframe {
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        z-index: 2001;
+        background: #f5f5f5;
+        border: 1px solid #d9d9d9;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+        .iframe-container .close-iframe:hover {
+            background: #e9e9e9;
+        }
+
+/* Responsive adjustments */
+@media (max-width: 1099px) {
+    .iframe-container {
+        left: 0;
+    }
+}
+
+

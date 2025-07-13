@@ -1,0 +1,36 @@
+﻿
+<div class="block-form umb-box-content">
+        <!--Column Name -->
+        <div class="control-group umb-control-group">
+            <div class="umb-el-wrap">
+                <label for="columnName" class="control-label">
+                    <span class="ng-binding">Name</span>
+                    <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+                </label>
+
+                <div class="controls">
+                    <input type="text" id="columnName" placeholder="Enter column name" 
+                           class="input-block-level" name="columnName" required ng-model="model.value.columnName">
+                </div>
+            </div>
+        </div>
+
+        <!--Column Type -->
+        <div class="control-group umb-control-group">
+            <div class="umb-el-wrap">
+                <label for="columnType" class="control-label">
+                    <span class="ng-binding">Type</span>
+                    <span class="ng-scope"> <strong class="umb-control-required">*</strong> </span>
+                </label>
+
+                <div class="controls">
+                    <select id="columnType" required
+                            class="input-block-level" name="columnType" ng-model="model.value.columnType">
+                        <option selected ng-value="null">Please select</option>
+                        <option ng-repeat="type in model.value.columnTypesList" value={{type.Key}}>{{type.Value}}</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+</div>

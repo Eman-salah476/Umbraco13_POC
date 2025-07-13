@@ -1,0 +1,115 @@
+﻿/* Overview Card Styles */
+.overview-responses {
+    width: 30%
+}
+
+.overview-status {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 120px;
+    margin-right: 24px;
+}
+
+    .overview-status img {
+        width: 20%;
+    }
+
+.overview-card {
+    margin-bottom: 30px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.overview-title {
+    margin-top: 0;
+    margin-bottom: 12px;
+    flex: 1 1 100%;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #222;
+}
+
+.overview-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    margin-right: 24px;
+}
+
+.overview-number-value {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.overview-number-label {
+    font-size: 1em;
+    color: #888;
+}
+
+.overview-chart {
+    min-width: 300px;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overview-chart-medium {
+    height: 250px;
+}
+
+.overview-chart-large {
+    height: 350px;
+}
+
+
+.overview-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.overview-response-list-container span {
+    font-size: 1.1em;
+    color: #888;
+}
+
+.overview-response-list {
+    margin: 0;
+    padding-left: 20px;
+    color: #333;
+    font-size: 1em;
+}
+
+    .overview-response-list li {
+        line-height: 20px;
+        max-width: 300px;
+        min-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+.overview-showall-btn {
+    position: absolute;
+    border: none;
+    background: none;
+    color: #2563eb;
+    text-decoration: underline;
+    right: 0;
+    margin: 15px;
+    cursor: pointer;
+}

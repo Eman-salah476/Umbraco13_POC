@@ -1,0 +1,19 @@
+{
+  "propertyEditors": [
+
+    {
+      "alias": "surveyListDropDown",
+      "name": "SurveyListDropDown",
+      "icon": "icon-list",
+      "group": "Custom",
+      "editor": {
+        "view": "~/App_Plugins/CustomFields/views/SurveyListDropDown.html",
+        "valueType": "TEXT"
+      }
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/CustomFields/js/SurveyListDropDown.js"
+
+  ]
+}

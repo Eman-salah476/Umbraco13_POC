@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <link href="/App_Plugins/Surveys/css/CustomStyle.css" rel="stylesheet" />
+    <script src="/js/config.js"></script>
+</head>
+<body>
+
+    <div ng-controller="FormsGridController as vm" class="forms-wrapper">
+        <div class="umb-panel umb-editor-wrapper">
+            <div class="umb-editor-header">
+                <div class="flex items-center" style="height:100%;">
+                    <h1 class="umb-panel-header-name">My Surveys</h1>
+                </div>
+            </div>
+            <div class="umb-editor-container">
+                <div class="umb-pane">
+                    <div class="umb-pane-content">
+                        <div class="umb-editor-sub-header">
+                            <button class="btn umb-button__button btn-outline umb-button-- umb-outline" ng-click="vm.showIFrame()">
+                                Create Survey
+                            </button>
+                        </div>
+
+                        <div class="umb-box">
+                            <div class="block-form umb-box-content">
+                                <umb-load-indicator ng-show="!vm.dataLoaded"></umb-load-indicator>
+
+                                <umb-empty-state ng-hide="vm.searchResults.items">
+                                    <localize key="content_listViewNoItems"></localize>
+                                </umb-empty-state>
+
+                                <!-- Table Of Forms-->
+                                <div class="umb-scrollable">
+
+                                    <umb-forms-table items="vm.searchResults.items"
+                                                     allow-select-all="false"
+                                                     on-click="vm.clickItem(item)"
+                                                     on-delete="vm.DeleteItem(item)"
+                                                     on-overview-redirect="vm.OverviewRedirect(item)">
+                                    </umb-forms-table>
+                                </div>
+
+                                <!-- Pagination-->
+                                <div class="flex justify-center">
+                                    <umb-pagination ng-show="vm.searchResults.totalPages"
+                                                    page-number="vm.pageNumber"
+                                                    total-pages="vm.searchResults.totalPages"
+                                                    on-next="vm.next"
+                                                    on-prev="vm.prev"
+                                                    on-go-to-page="vm.goToPage">
+                                    </umb-pagination>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <!--IFrame -->
+                <div id="iframe-container" class="iframe-container"></div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
